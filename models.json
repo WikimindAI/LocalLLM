@@ -1,0 +1,275 @@
+{
+  "schema_version": 1,
+  "updated": "2026-09-28",
+  "notes": [
+    "size_gb = taille approximative du fichier GGUF (en Go). A vérifier sur la page Hugging Face avant téléchargement.",
+    "params_b = milliards de paramètres totaux. active_params_b = paramètres actifs pour les modèles MoE (le modèle entier doit quand même tenir en mémoire).",
+    "class = plus petite classe dont max_params_b >= params_b.",
+    "provider = créateur du modèle. gguf_by = auteur des fichiers GGUF sur Hugging Face."
+  ],
+  "memory_formula": {
+    "needed_gb": "size_gb + 1.5",
+    "available_gb_cpu_only": "ram_gb - 2",
+    "available_gb_with_gpu": "vram_gb",
+    "ssd_needed_gb": "size_gb"
+  },
+  "classes": [
+    { "class": "A1",   "max_params_b": 1,   "min_ram_gb": 4,  "min_vram_gb": 2,  "min_ssd_gb": 1 },
+    { "class": "A2",   "max_params_b": 2,   "min_ram_gb": 4,  "min_vram_gb": 3,  "min_ssd_gb": 2 },
+    { "class": "A3",   "max_params_b": 3,   "min_ram_gb": 6,  "min_vram_gb": 4,  "min_ssd_gb": 3 },
+    { "class": "A4",   "max_params_b": 4,   "min_ram_gb": 8,  "min_vram_gb": 6,  "min_ssd_gb": 3 },
+    { "class": "A8",   "max_params_b": 8,   "min_ram_gb": 16, "min_vram_gb": 8,  "min_ssd_gb": 6 },
+    { "class": "A14",  "max_params_b": 14,  "min_ram_gb": 16, "min_vram_gb": 12, "min_ssd_gb": 10 },
+    { "class": "A32",  "max_params_b": 32,  "min_ram_gb": 32, "min_vram_gb": 24, "min_ssd_gb": 20 },
+    { "class": "A70",  "max_params_b": 70,  "min_ram_gb": 64, "min_vram_gb": 48, "min_ssd_gb": 45 },
+    { "class": "A120", "max_params_b": 120, "min_ram_gb": 96, "min_vram_gb": 80, "min_ssd_gb": 70 }
+  ],
+  "models": [
+    {
+      "id": "qwen3-0.6b", "name": "Qwen3 0.6B", "provider": "Alibaba (Qwen)", "gguf_by": "unsloth",
+      "params_b": 0.6, "class": "A1", "tags": ["chat", "reasoning", "multilingual"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 0.40 },
+        { "quant": "Q6_K", "size_gb": 0.50 },
+        { "quant": "Q8_0", "size_gb": 0.64 }
+      ],
+      "repo_url": "https://huggingface.co/unsloth/Qwen3-0.6B-GGUF"
+    },
+    {
+      "id": "gemma-3-1b", "name": "Gemma 3 1B Instruct", "provider": "Google", "gguf_by": "unsloth",
+      "params_b": 1.0, "class": "A1", "tags": ["chat", "multilingual"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 0.81 },
+        { "quant": "Q6_K", "size_gb": 1.01 },
+        { "quant": "Q8_0", "size_gb": 1.07 }
+      ],
+      "repo_url": "https://huggingface.co/unsloth/gemma-3-1b-it-GGUF"
+    },
+    {
+      "id": "llama-3.2-1b", "name": "Llama 3.2 1B Instruct", "provider": "Meta", "gguf_by": "bartowski",
+      "params_b": 1.24, "class": "A2", "tags": ["chat", "multilingual"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 0.81 },
+        { "quant": "Q6_K", "size_gb": 1.02 },
+        { "quant": "Q8_0", "size_gb": 1.32 }
+      ],
+      "repo_url": "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF"
+    },
+    {
+      "id": "qwen3-1.7b", "name": "Qwen3 1.7B", "provider": "Alibaba (Qwen)", "gguf_by": "unsloth",
+      "params_b": 1.7, "class": "A2", "tags": ["chat", "reasoning", "multilingual"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 1.11 },
+        { "quant": "Q6_K", "size_gb": 1.42 },
+        { "quant": "Q8_0", "size_gb": 1.83 }
+      ],
+      "repo_url": "https://huggingface.co/unsloth/Qwen3-1.7B-GGUF"
+    },
+    {
+      "id": "smollm2-1.7b", "name": "SmolLM2 1.7B Instruct", "provider": "Hugging Face", "gguf_by": "bartowski",
+      "params_b": 1.7, "class": "A2", "tags": ["chat"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 1.06 },
+        { "quant": "Q6_K", "size_gb": 1.36 },
+        { "quant": "Q8_0", "size_gb": 1.82 }
+      ],
+      "repo_url": "https://huggingface.co/bartowski/SmolLM2-1.7B-Instruct-GGUF"
+    },
+    {
+      "id": "smollm3-3b", "name": "SmolLM3 3B", "provider": "Hugging Face", "gguf_by": "unsloth",
+      "params_b": 3.0, "class": "A3", "tags": ["chat", "reasoning", "multilingual"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 1.92 },
+        { "quant": "Q6_K", "size_gb": 2.54 },
+        { "quant": "Q8_0", "size_gb": 3.28 }
+      ],
+      "repo_url": "https://huggingface.co/unsloth/SmolLM3-3B-GGUF"
+    },
+    {
+      "id": "llama-3.2-3b", "name": "Llama 3.2 3B Instruct", "provider": "Meta", "gguf_by": "bartowski",
+      "params_b": 3.21, "class": "A4", "tags": ["chat", "multilingual", "tools"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 2.02 },
+        { "quant": "Q6_K", "size_gb": 2.64 },
+        { "quant": "Q8_0", "size_gb": 3.42 }
+      ],
+      "repo_url": "https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF"
+    },
+    {
+      "id": "phi-4-mini", "name": "Phi-4 mini Instruct", "provider": "Microsoft", "gguf_by": "unsloth",
+      "params_b": 3.8, "class": "A4", "tags": ["chat", "reasoning", "tools"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 2.49 },
+        { "quant": "Q6_K", "size_gb": 3.16 },
+        { "quant": "Q8_0", "size_gb": 4.08 }
+      ],
+      "repo_url": "https://huggingface.co/unsloth/Phi-4-mini-instruct-GGUF"
+    },
+    {
+      "id": "qwen3-4b", "name": "Qwen3 4B", "provider": "Alibaba (Qwen)", "gguf_by": "unsloth",
+      "params_b": 4.0, "class": "A4", "tags": ["chat", "reasoning", "multilingual", "tools"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 2.50 },
+        { "quant": "Q6_K", "size_gb": 3.31 },
+        { "quant": "Q8_0", "size_gb": 4.28 }
+      ],
+      "repo_url": "https://huggingface.co/unsloth/Qwen3-4B-GGUF"
+    },
+    {
+      "id": "gemma-3-4b", "name": "Gemma 3 4B Instruct", "provider": "Google", "gguf_by": "unsloth",
+      "params_b": 4.3, "class": "A8", "tags": ["chat", "multilingual", "vision"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 2.49 },
+        { "quant": "Q6_K", "size_gb": 3.19 },
+        { "quant": "Q8_0", "size_gb": 4.13 }
+      ],
+      "repo_url": "https://huggingface.co/unsloth/gemma-3-4b-it-GGUF"
+    },
+    {
+      "id": "mistral-7b-v0.3", "name": "Mistral 7B Instruct v0.3", "provider": "Mistral AI", "gguf_by": "bartowski",
+      "params_b": 7.25, "class": "A8", "tags": ["chat", "multilingual", "tools"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 4.37 },
+        { "quant": "Q6_K", "size_gb": 5.95 },
+        { "quant": "Q8_0", "size_gb": 7.70 }
+      ],
+      "repo_url": "https://huggingface.co/bartowski/Mistral-7B-Instruct-v0.3-GGUF"
+    },
+    {
+      "id": "qwen2.5-coder-7b", "name": "Qwen2.5 Coder 7B Instruct", "provider": "Alibaba (Qwen)", "gguf_by": "Qwen (officiel)",
+      "params_b": 7.6, "class": "A8", "tags": ["code"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 4.68 },
+        { "quant": "Q6_K", "size_gb": 6.25 },
+        { "quant": "Q8_0", "size_gb": 8.10 }
+      ],
+      "repo_url": "https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct-GGUF"
+    },
+    {
+      "id": "llama-3.1-8b", "name": "Llama 3.1 8B Instruct", "provider": "Meta", "gguf_by": "bartowski",
+      "params_b": 8.03, "class": "A14", "tags": ["chat", "multilingual", "tools"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 4.92 },
+        { "quant": "Q6_K", "size_gb": 6.60 },
+        { "quant": "Q8_0", "size_gb": 8.54 }
+      ],
+      "repo_url": "https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF"
+    },
+    {
+      "id": "qwen3-8b", "name": "Qwen3 8B", "provider": "Alibaba (Qwen)", "gguf_by": "unsloth",
+      "params_b": 8.2, "class": "A14", "tags": ["chat", "reasoning", "multilingual", "tools"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 5.03 },
+        { "quant": "Q6_K", "size_gb": 6.73 },
+        { "quant": "Q8_0", "size_gb": 8.71 }
+      ],
+      "repo_url": "https://huggingface.co/unsloth/Qwen3-8B-GGUF"
+    },
+    {
+      "id": "gemma-3-12b", "name": "Gemma 3 12B Instruct", "provider": "Google", "gguf_by": "unsloth",
+      "params_b": 12.2, "class": "A14", "tags": ["chat", "multilingual", "vision"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 7.30 },
+        { "quant": "Q6_K", "size_gb": 9.66 },
+        { "quant": "Q8_0", "size_gb": 12.5 }
+      ],
+      "repo_url": "https://huggingface.co/unsloth/gemma-3-12b-it-GGUF"
+    },
+    {
+      "id": "qwen3-14b", "name": "Qwen3 14B", "provider": "Alibaba (Qwen)", "gguf_by": "unsloth",
+      "params_b": 14.8, "class": "A32", "tags": ["chat", "reasoning", "multilingual", "tools"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 9.00 },
+        { "quant": "Q6_K", "size_gb": 12.1 },
+        { "quant": "Q8_0", "size_gb": 15.7 }
+      ],
+      "repo_url": "https://huggingface.co/unsloth/Qwen3-14B-GGUF"
+    },
+    {
+      "id": "phi-4", "name": "Phi-4 14B", "provider": "Microsoft", "gguf_by": "bartowski",
+      "params_b": 14.7, "class": "A32", "tags": ["chat", "reasoning"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 9.05 },
+        { "quant": "Q6_K", "size_gb": 12.0 },
+        { "quant": "Q8_0", "size_gb": 15.6 }
+      ],
+      "repo_url": "https://huggingface.co/bartowski/phi-4-GGUF"
+    },
+    {
+      "id": "gpt-oss-20b", "name": "gpt-oss 20B", "provider": "OpenAI", "gguf_by": "ggml-org",
+      "params_b": 21.0, "active_params_b": 3.6, "class": "A32", "tags": ["chat", "reasoning", "tools", "moe"],
+      "quantizations": [
+        { "quant": "MXFP4", "size_gb": 12.1 }
+      ],
+      "repo_url": "https://huggingface.co/ggml-org/gpt-oss-20b-GGUF"
+    },
+    {
+      "id": "mistral-small-3.2-24b", "name": "Mistral Small 3.2 24B Instruct", "provider": "Mistral AI", "gguf_by": "unsloth",
+      "params_b": 24.0, "class": "A32", "tags": ["chat", "multilingual", "tools", "vision"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 14.3 },
+        { "quant": "Q6_K", "size_gb": 19.3 },
+        { "quant": "Q8_0", "size_gb": 25.1 }
+      ],
+      "repo_url": "https://huggingface.co/unsloth/Mistral-Small-3.2-24B-Instruct-2506-GGUF"
+    },
+    {
+      "id": "gemma-3-27b", "name": "Gemma 3 27B Instruct", "provider": "Google", "gguf_by": "unsloth",
+      "params_b": 27.0, "class": "A32", "tags": ["chat", "multilingual", "vision"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 16.5 },
+        { "quant": "Q6_K", "size_gb": 22.3 },
+        { "quant": "Q8_0", "size_gb": 28.7 }
+      ],
+      "repo_url": "https://huggingface.co/unsloth/gemma-3-27b-it-GGUF"
+    },
+    {
+      "id": "qwen3-30b-a3b", "name": "Qwen3 30B-A3B", "provider": "Alibaba (Qwen)", "gguf_by": "unsloth",
+      "params_b": 30.5, "active_params_b": 3.3, "class": "A32", "tags": ["chat", "reasoning", "multilingual", "tools", "moe"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 18.6 },
+        { "quant": "Q6_K", "size_gb": 25.1 },
+        { "quant": "Q8_0", "size_gb": 32.5 }
+      ],
+      "repo_url": "https://huggingface.co/unsloth/Qwen3-30B-A3B-GGUF"
+    },
+    {
+      "id": "qwen3-coder-30b-a3b", "name": "Qwen3 Coder 30B-A3B Instruct", "provider": "Alibaba (Qwen)", "gguf_by": "unsloth",
+      "params_b": 30.5, "active_params_b": 3.3, "class": "A32", "tags": ["code", "tools", "moe"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 18.6 },
+        { "quant": "Q6_K", "size_gb": 25.1 },
+        { "quant": "Q8_0", "size_gb": 32.5 }
+      ],
+      "repo_url": "https://huggingface.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF"
+    },
+    {
+      "id": "qwen3-32b", "name": "Qwen3 32B", "provider": "Alibaba (Qwen)", "gguf_by": "unsloth",
+      "params_b": 32.8, "class": "A70", "tags": ["chat", "reasoning", "multilingual", "tools"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 19.8 },
+        { "quant": "Q6_K", "size_gb": 26.9 },
+        { "quant": "Q8_0", "size_gb": 34.8 }
+      ],
+      "repo_url": "https://huggingface.co/unsloth/Qwen3-32B-GGUF"
+    },
+    {
+      "id": "llama-3.3-70b", "name": "Llama 3.3 70B Instruct", "provider": "Meta", "gguf_by": "bartowski",
+      "params_b": 70.6, "class": "A120", "tags": ["chat", "multilingual", "tools"],
+      "quantizations": [
+        { "quant": "Q4_K_M", "size_gb": 42.5 },
+        { "quant": "Q6_K", "size_gb": 57.9 },
+        { "quant": "Q8_0", "size_gb": 75.0 }
+      ],
+      "repo_url": "https://huggingface.co/bartowski/Llama-3.3-70B-Instruct-GGUF"
+    },
+    {
+      "id": "gpt-oss-120b", "name": "gpt-oss 120B", "provider": "OpenAI", "gguf_by": "ggml-org",
+      "params_b": 117.0, "active_params_b": 5.1, "class": "A120", "tags": ["chat", "reasoning", "tools", "moe"],
+      "quantizations": [
+        { "quant": "MXFP4", "size_gb": 63.4 }
+      ],
+      "repo_url": "https://huggingface.co/ggml-org/gpt-oss-120b-GGUF"
+    }
+  ]
+}
