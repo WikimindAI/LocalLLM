@@ -3,204 +3,319 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Local LLM – Calculateur de configuration</title>
+<title>LocalLLM – Fais tourner l'IA sur ta machine</title>
 <style>
-*{box-sizing:border-box}
-[hidden]{display:none!important}
-body{margin:0;font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#f4f6f8;color:#1c2229}
-header{background:#fff;border-bottom:1px solid #d5dae1;padding:16px 24px}
-header h1{margin:0;font-size:19px;font-weight:650}
-header p{margin:2px 0 0;color:#5a6673}
-main{display:grid;grid-template-columns:330px 1fr;gap:20px;padding:20px 24px;max-width:1280px;margin:auto;align-items:start}
-form,#out{background:#fff;border:1px solid #d5dae1;border-radius:4px;padding:16px}
-h2{margin:0 0 12px;font-size:15px;font-weight:650}
-label{display:block;font-weight:600;font-size:13px;margin-bottom:12px}
-input,select{display:block;width:100%;margin-top:4px;padding:7px 8px;font:inherit;font-weight:400;border:1px solid #aeb6c0;border-radius:3px;background:#fff;color:inherit}
-input:focus,select:focus,a:focus-visible{outline:2px solid #1f5fbf;outline-offset:1px}
+:root{--bg:#080a12;--tx:#e9edf6;--mu:#8e98ad;--gl:rgba(255,255,255,.05);--bd:rgba(255,255,255,.1);--a:#8b6cff;--b:#22d3ee;--ok:#34d399;--wa:#fbbf24;--ba:#f87171}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;font:15px/1.55 "Segoe UI Variable","Segoe UI",system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden}
+.bg i{position:absolute;width:55vw;height:55vw;border-radius:50%;filter:blur(120px);opacity:.25;animation:fl 24s ease-in-out infinite alternate}
+.bg i:first-child{background:var(--a);top:-22vw;left:-12vw}.bg i:last-child{background:var(--b);bottom:-28vw;right:-12vw;animation-delay:-11s}
+@keyframes fl{to{transform:translate(9vw,6vw) scale(1.15)}}
+nav{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:20px;padding:12px 28px;backdrop-filter:blur(18px);background:rgba(8,10,18,.65);border-bottom:1px solid var(--bd)}
+.logo{font-weight:800;font-size:19px;letter-spacing:-.4px}
+.g{background:linear-gradient(95deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tabs{display:flex;gap:4px;margin-left:auto;overflow-x:auto}
+.tabs a{padding:8px 15px;border-radius:10px;color:var(--mu);text-decoration:none;font-weight:560;white-space:nowrap;transition:color .2s,background .2s}
+.tabs a:hover{color:var(--tx)}.tabs a.on{color:#fff;background:var(--gl);box-shadow:inset 0 0 0 1px var(--bd)}
+.wrap{max-width:1200px;margin:auto;padding:34px 28px 80px}
+h1{font-size:clamp(34px,6vw,64px);line-height:1.04;letter-spacing:-.035em;margin:0 0 16px;font-weight:800}
+h2{font-size:28px;letter-spacing:-.02em;margin:0 0 6px}h3{margin:0;font-size:16px}
+.lead{color:var(--mu);font-size:18px;max-width:58ch;margin:0 0 26px}
+.mu,small{color:var(--mu)}
+.card{background:var(--gl);border:1px solid var(--bd);border-radius:16px;padding:22px;backdrop-filter:blur(10px)}
+.btn{display:inline-block;border:0;cursor:pointer;font:inherit;font-weight:650;padding:12px 22px;border-radius:12px;color:#fff;text-decoration:none;background:linear-gradient(95deg,var(--a),#5b8cff);box-shadow:0 8px 30px -8px var(--a);transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 34px -6px var(--a)}
+.btn.s{background:var(--gl);box-shadow:inset 0 0 0 1px var(--bd)}
+.hero{padding:40px 0 30px}.hero .in>*{opacity:0;animation:up .8s cubic-bezier(.2,.8,.2,1) forwards}
+.hero .in>*:nth-child(2){animation-delay:.12s}.hero .in>*:nth-child(3){animation-delay:.24s}.hero .in>*:nth-child(4){animation-delay:.36s}
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.stats{display:flex;gap:40px;flex-wrap:wrap;margin:40px 0}
+.stats b{display:block;font-size:40px;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.cols p{color:var(--mu);margin:8px 0 0}
+label{display:block;font-weight:600;font-size:13px;margin-bottom:13px}
+input,select{display:block;width:100%;margin-top:5px;padding:10px 12px;font:inherit;font-weight:400;color:var(--tx);background:rgba(255,255,255,.06);border:1px solid var(--bd);border-radius:10px;transition:border-color .2s,box-shadow .2s}
+select option,select optgroup{background:#12141e;color:var(--tx)}
+input:focus,select:focus,a:focus-visible,button:focus-visible{outline:0;border-color:var(--b);box-shadow:0 0 0 3px rgba(34,211,238,.2)}
+input[type=checkbox]{display:inline-block;width:auto;margin:0 8px 0 0;vertical-align:middle}
 .row{display:grid;grid-template-columns:1fr 1.2fr .8fr;gap:8px}
-#sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border:1px solid #d5dae1;border-radius:4px;margin-bottom:20px}
-.st{padding:10px 14px;border-left:1px solid #d5dae1;display:flex;flex-direction:column}
-.st:first-child{border-left:0}
-.st span,.st small{font-size:12px;color:#5a6673}
-.st b{font-size:22px;font-weight:650;font-variant-numeric:tabular-nums}
-.bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.bar h2{margin:0}
-.bar label{margin:0;font-weight:400}
-.bar input{display:inline-block;width:auto;margin:0 6px 0 0;vertical-align:middle}
-.tw{overflow-x:auto}
+.lay{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start}
+.gauge{margin:6px 0 4px}
+.mem{display:flex;height:46px;border-radius:12px;overflow:hidden;background:rgba(255,255,255,.06);border:1px solid var(--bd)}
+.mem div{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:650;white-space:nowrap;overflow:hidden;transition:flex-grow .9s cubic-bezier(.2,.8,.2,1)}
+.mem .sy{background:repeating-linear-gradient(135deg,#3a3f52 0 8px,#333849 8px 16px);color:#c7cddd}
+.mem .av{background:linear-gradient(95deg,var(--a),var(--b));color:#06121a}
+.mem .gp{background:linear-gradient(95deg,#34d399,#a3e635);color:#06210f}
+.big{font-size:clamp(54px,9vw,96px);font-weight:800;letter-spacing:-.05em;line-height:1;margin:14px 0 4px}
+.lad{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.lad span{padding:6px 12px;border-radius:9px;border:1px solid var(--bd);color:var(--mu);font-weight:600;font-size:13px;transition:.4s}
+.lad span.r{color:var(--tx);background:rgba(139,108,255,.18);border-color:rgba(139,108,255,.5)}
+.lad span.c{color:#fff;background:linear-gradient(95deg,var(--a),var(--b));border-color:transparent;transform:scale(1.12)}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:20px}
+.sg div{padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid var(--bd)}
+.sg b{display:block;font-size:20px;font-variant-numeric:tabular-nums}.sg small{display:block}
+.chip{font:inherit;cursor:pointer;color:var(--mu);background:var(--gl);border:1px solid var(--bd);border-radius:20px;padding:5px 12px}
+.chip.on{color:#fff;border-color:var(--b);background:rgba(34,211,238,.15)}
+.tb{display:grid;grid-template-columns:1fr 170px 150px;gap:10px;margin-bottom:12px}.tb *{margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;margin-top:18px}
+.mc{cursor:pointer;padding:18px;border-radius:16px;background:var(--gl);border:1px solid var(--bd);transition:transform .25s,border-color .25s,background .25s;animation:up .45s both}
+.mc:hover{transform:translateY(-4px);border-color:hsl(var(--h) 80% 65% / .7);background:hsl(var(--h) 80% 60% / .08)}
+.hd{display:flex;gap:12px;align-items:center}
+.lg{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:800;color:#fff;background:linear-gradient(135deg,hsl(var(--h) 75% 55%),hsl(calc(var(--h) + 40) 75% 40%));box-shadow:0 6px 18px -6px hsl(var(--h) 80% 55%)}
+.lg.xl{width:64px;height:64px;font-size:22px;border-radius:16px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.meta span{font-size:12px;padding:2px 9px;border-radius:8px;background:rgba(255,255,255,.07);color:var(--mu)}
+.ft{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--mu)}
+.tag{padding:2px 10px;border-radius:10px;font-size:12px;font-weight:600;border:1px solid;white-space:nowrap}
+.ok{color:var(--ok)}.warn{color:var(--wa)}.bad{color:var(--ba)}
+dialog{width:min(760px,94vw);max-height:90vh;padding:0;border:1px solid var(--bd);border-radius:20px;background:#0f1220;color:var(--tx);overflow:auto}
+dialog[open]{animation:pop .3s cubic-bezier(.2,.8,.2,1)}
+dialog::backdrop{background:rgba(3,4,10,.7);backdrop-filter:blur(6px)}
+@keyframes pop{from{opacity:0;transform:scale(.94) translateY(12px)}}
+.dc{padding:26px}.x{float:right;font-size:26px;line-height:1;background:0;border:0;color:var(--mu);cursor:pointer}
+.tw{overflow-x:auto;margin-top:14px}
 table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
-th,td{text-align:left;padding:8px 10px;border-bottom:1px solid #e4e8ed;white-space:nowrap}
-th{font-size:12px;color:#5a6673;font-weight:600;background:#f9fafb}
-td small{display:block;color:#5a6673;font-size:12px}
-.tag{padding:1px 8px;border-radius:10px;font-size:12px;border:1px solid}
-.ok{color:#17703f;border-color:#17703f}.warn{color:#9a5700;border-color:#9a5700}.bad{color:#b0281c;border-color:#b0281c}
-a{color:#1f5fbf}
-.note{color:#5a6673;font-size:12px;margin:14px 0 0;max-width:80ch}
-#err{margin:20px 24px;color:#b0281c}
-@media(max-width:860px){main{grid-template-columns:1fr;padding:12px}.st{border-left:0;border-top:1px solid #d5dae1}.st:first-child{border-top:0}}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--bd);white-space:nowrap}th{font-size:12px;color:var(--mu)}
+pre{position:relative;margin:10px 0;padding:14px 60px 14px 16px;border-radius:12px;background:#05060b;border:1px solid var(--bd);overflow-x:auto;font:13px/1.6 ui-monospace,Consolas,monospace;color:#c7d2fe}
+pre button{position:absolute;top:8px;right:8px;font:inherit;font-size:12px;padding:4px 10px;border-radius:8px;border:1px solid var(--bd);background:var(--gl);color:var(--tx);cursor:pointer}
+.st{display:flex;gap:16px;margin:26px 0 6px}.st>b{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--a),var(--b));color:#06121a}.st>div{flex:1;min-width:0}
+#err{margin:30px;color:var(--ba)}
+@media(max-width:860px){.lay{grid-template-columns:1fr}.wrap{padding:22px 16px 60px}nav{padding:10px 14px}.tb{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*,.bg i{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<header>
-  <h1>Local LLM</h1>
-  <p>Calculateur de configuration : quels modèles ta machine peut faire tourner.</p>
-</header>
-<main>
-  <form autocomplete="off" onsubmit="return false">
-    <h2>Configuration</h2>
-    <label>Processeur
-      <input id="cpu" list="cpus" placeholder="Tape pour chercher, ex. Ryzen 7 7800X3D">
-    </label>
-    <label>Carte graphique
-      <input id="gpu" list="gpus" value="none" placeholder="none si aucune">
-    </label>
-    <label id="nrow" hidden>Nombre de GPU
-      <select id="n"><option>1</option><option>2</option><option>3</option><option>4</option><option>8</option></select>
-    </label>
-    <label>Mémoire vive (RAM)
-      <select id="ram"></select>
-    </label>
-    <div class="row" id="rmore">
-      <label>Type<select id="rt"></select></label>
-      <label>Vitesse<select id="rs"></select></label>
-      <label>Canaux<select id="rc"></select></label>
-    </div>
-    <label>Stockage
-      <select id="ssd"></select>
-    </label>
-    <label>Espace libre (Go)
-      <input id="free" type="number" min="1" value="256">
-    </label>
-  </form>
+<div class="bg"><i></i><i></i></div>
+<nav>
+  <div class="logo">Local<span class="g">LLM</span></div>
+  <div class="tabs">
+    <a href="#home" data-p="home">Présentation</a><a href="#class" data-p="class">Ma classe</a><a href="#models" data-p="models">Tous les modèles</a><a href="#dl" data-p="dl">Pack hors ligne</a>
+  </div>
+</nav>
 
-  <section id="out">
-    <div id="sum"></div>
-    <div class="bar">
-      <h2>Modèles</h2>
-      <label><input type="checkbox" id="only" checked>Compatibles uniquement</label>
+<div class="wrap">
+<section id="p-home" hidden>
+  <div class="hero"><div class="in">
+    <h1>Ta machine peut faire tourner<br>plus d'IA que tu ne crois.<br><span class="g">Ou beaucoup moins.</span></h1>
+    <p class="lead">LocalLLM compare ton processeur, ta RAM, ton GPU et ton disque à <b id="hn">100+</b> modèles open source, en gardant la mémoire que Windows se réserve.</p>
+    <p><a class="btn" href="#class">Évaluer ma machine</a> <a class="btn s" href="#models">Parcourir les modèles</a></p>
+  </div></div>
+  <div class="stats"><div><b data-n="M">0</b><small>modèles</small></div><div><b data-n="P">0</b><small>éditeurs</small></div><div><b data-n="Q">0</b><small>quantifications</small></div></div>
+  <div class="cols">
+    <div class="card"><h3>Estimation réaliste</h3><p>La mémoire système (8 à 10 Go sous Windows) est retirée avant de savoir si un modèle tient. Un PC de 16 Go n'a pas 16 Go pour l'IA.</p></div>
+    <div class="card"><h3>Vitesse prévisible</h3><p>La vitesse en tokens par seconde vient de la bande passante mémoire, le vrai goulot d'étranglement en local.</p></div>
+    <div class="card"><h3>Tout hors ligne</h3><p>Télécharge le pack, lance un mini-serveur local, et le calculateur fonctionne sans internet.</p></div>
+  </div>
+</section>
+
+<section id="p-class" hidden>
+  <h2>Évaluer ma classe</h2>
+  <p class="lead">Renseigne ta machine, la classe se calcule en direct.</p>
+  <div class="lay">
+    <form class="card" autocomplete="off" onsubmit="return false">
+      <label>Processeur<input id="cpu" list="cpus" placeholder="ex. Core i7-13700K"></label>
+      <label>Carte graphique<input id="gpu" list="gpus" value="none" placeholder="none si aucune"></label>
+      <label id="nrow" hidden>Nombre de GPU<select id="n"><option>1</option><option>2</option><option>3</option><option>4</option><option>8</option></select></label>
+      <label>Mémoire vive (RAM)<select id="ram"></select></label>
+      <div class="row" id="rmore"><label>Type<select id="rt"></select></label><label>Vitesse<select id="rs"></select></label><label>Canaux<select id="rc"></select></label></div>
+      <label>Mémoire réservée au système
+        <select id="res"><option value="4">4 Go (Linux léger)</option><option value="8" selected>8 Go (Windows)</option><option value="10">10 Go (Windows + navigateur)</option></select></label>
+      <label>Stockage<select id="ssd"></select></label>
+      <label>Espace libre (Go)<input id="free" type="number" min="1" value="256"></label>
+    </form>
+    <div class="card">
+      <small>Ta classe</small>
+      <div class="big g" id="cls">–</div>
+      <div class="mu" id="cls2"></div>
+      <div class="gauge"><div class="mem" id="mem"></div><small id="memt"></small></div>
+      <div class="lad" id="lad"></div>
+      <div class="sg" id="sum"></div>
+      <p class="mu" style="font-size:13px;margin:18px 0 0;max-width:75ch">Mémoire nécessaire = taille du fichier + 1,5 Go (contexte et moteur). Vitesse estimée à partir de la bande passante (65 % GPU, 50 % CPU), variable selon le logiciel et le contexte. Sur mémoire unifiée (Mac, Ryzen AI), environ 67 % de la RAM (75 % au-delà de 36 Go) est utilisable par le GPU.</p>
+      <p style="margin:18px 0 0"><a class="btn" href="#models">Voir les modèles compatibles</a></p>
     </div>
-    <div class="tw">
-      <table>
-        <thead><tr><th>Modèle</th><th>Classe</th><th>Quantification</th><th>Taille</th><th>Exécution</th><th>Vitesse estimée</th><th>Chargement</th><th>Source</th></tr></thead>
-        <tbody id="tb"></tbody>
-      </table>
-    </div>
-    <p class="note">La mémoire nécessaire est la taille du fichier plus 1,5 Go (contexte et moteur). Sans GPU, 2 Go de RAM sont réservés au système. La vitesse est une estimation à partir de la bande passante mémoire (65 % pour un GPU, 50 % pour le CPU) et peut varier selon le logiciel et la longueur du contexte. Sur mémoire unifiée, environ 67 % de la RAM (75 % au-delà de 36 Go) est utilisable par le GPU.</p>
-  </section>
-</main>
-<p id="err" hidden>Impossible de charger models.json et hardware.json. Ouvre la page depuis un serveur (GitHub Pages, ou <code>python -m http.server</code> en local) et non en double-cliquant sur le fichier.</p>
-<datalist id="cpus"></datalist>
-<datalist id="gpus"></datalist>
+  </div>
+</section>
+
+<section id="p-models" hidden>
+  <h2>Tous les modèles</h2>
+  <p class="lead">Clique sur un modèle pour voir sa fiche et comment il tourne sur <span id="cfg">ta machine</span>.</p>
+  <div class="tb"><input id="q" placeholder="Rechercher un modèle, un éditeur…"><select id="fp"></select><select id="ft"></select></div>
+  <label style="font-weight:400"><input type="checkbox" id="only">Compatibles uniquement</label>
+  <small id="cnt"></small>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section id="p-dl" hidden>
+  <h2>Pack hors ligne</h2>
+  <p class="lead">L'interface, les données et un lanceur : rien ne sort de ta machine.</p>
+  <div class="st"><b>1</b><div><h3>Récupère le pack</h3>
+    <p class="mu">Archive ZIP du dépôt, ou clone Git.</p>
+    <a class="btn" id="zip" target="_blank" rel="noopener">Télécharger le ZIP</a> <a class="btn s" id="gh" target="_blank" rel="noopener">Dépôt GitHub</a>
+    <pre data-c="git clone https://github.com/chpalitom09-bot/LocalLLM.git">git clone https://github.com/chpalitom09-bot/LocalLLM.git</pre></div></div>
+  <div class="st"><b>2</b><div><h3>Lance le serveur local</h3>
+    <p class="mu">Il faut un serveur : ouvrir index.html en double-clic ne charge pas les JSON. Python 3 suffit.</p>
+    <p><span class="mu">Windows :</span> double-clic sur <code>start.bat</code>, ou</p>
+    <pre data-c="py -m http.server 8080">py -m http.server 8080</pre>
+    <p><span class="mu">macOS / Linux :</span></p>
+    <pre data-c="sh start.sh">sh start.sh
+# ou : python3 -m http.server 8080</pre>
+    <p class="mu">Sans Python : <code>npx serve .</code></p></div></div>
+  <div class="st"><b>3</b><div><h3>Ouvre l'interface</h3><pre data-c="http://localhost:8080">http://localhost:8080</pre></div></div>
+  <div class="st"><b>4</b><div><h3>Fais tourner un modèle</h3>
+    <p class="mu">Avec llama.cpp, télécharge et sers un GGUF choisi dans le catalogue :</p>
+    <pre data-c="llama-server -hf unsloth/Qwen3-8B-GGUF:Q4_K_M">llama-server -hf unsloth/Qwen3-8B-GGUF:Q4_K_M</pre>
+    <p class="mu">Avec Ollama :</p>
+    <pre data-c="ollama run qwen3:8b">ollama run qwen3:8b</pre></div></div>
+  <div class="card" style="margin-top:30px"><h3>Données seules</h3><p class="mu">Pour réutiliser le catalogue dans tes propres outils.</p>
+    <a class="btn s" href="models.json" download>models.json</a> <a class="btn s" href="hardware.json" download>hardware.json</a></div>
+</section>
+</div>
+
+<dialog id="dlg"></dialog>
+<p id="err" hidden>Impossible de charger models.json et hardware.json. Lance la page depuis un serveur (voir « Pack hors ligne »), pas en double-cliquant sur le fichier.</p>
+<datalist id="cpus"></datalist><datalist id="gpus"></datalist>
 
 <script>
-const $=i=>document.getElementById(i), f1=n=>n.toFixed(1);
-const DFLT={DDR3:1600,DDR4:3200,DDR5:5600,LPDDR4X:4267,LPDDR5:6400,LPDDR5X:7500};
-let M,H,lastCpu=null;
+const $=i=>document.getElementById(i),f1=n=>n.toFixed(1),REPO='https://github.com/chpalitom09-bot/LocalLLM';
+const DFLT={DDR3:1600,DDR4:3200,DDR5:5600};
+const DESC={chat:'la conversation générale',reasoning:'le raisonnement pas à pas',multilingual:'plusieurs langues, dont le français',tools:'les appels d\'outils et les agents',vision:'l\'analyse d\'images',code:'la génération et la revue de code'};
+let M,H,R=[],lastCpu=null,CFG={};
 
-Promise.all(['models.json','hardware.json'].map(u=>fetch(u).then(r=>r.json())))
-  .then(([m,h])=>{M=m;H=h;init()})
-  .catch(()=>{$('err').hidden=false});
+Promise.all(['models.json','hardware.json'].map(u=>fetch(u).then(r=>r.json()))).then(([m,h])=>{M=m;H=h;init()}).catch(()=>{$('err').hidden=false});
 
 function opts(sel,vals,keep,fmt=v=>v){
   const k=keep??sel.value;
   sel.innerHTML=vals.map(v=>`<option value="${v}">${fmt(v)}</option>`).join('');
   if(vals.map(String).includes(String(k)))sel.value=k;
 }
+const setv=(id,v)=>{const e=$(id);if(v!=null&&[...(e.options||[{value:v}])].some(o=>o.value==v))e.value=v};
+const hue=s=>[...s].reduce((a,c)=>(a*31+c.charCodeAt(0))%360,7);
+const ini=s=>s.replace(/[^A-Za-z ]/g,'').split(' ').filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase()||'?';
+const logo=(p,x)=>`<div class="lg ${x||''}" style="--h:${hue(p)}">${ini(p)}</div>`;
 
 function init(){
   $('cpus').innerHTML=H.cpus.map(c=>`<option value="${c.name}">`).join('');
   $('gpus').innerHTML='<option value="none">'+H.gpus.map(g=>`<option value="${g.name}">`).join('');
-  const st=H.storage, o=(n,r)=>`<option value="${r}">${n} (${r} Mo/s)</option>`;
+  const st=H.storage,o=(n,r)=>`<option value="${r}">${n} (${r} Mo/s)</option>`;
   $('ssd').innerHTML='<optgroup label="Type de support">'+st.types.map(t=>o(t.name,t.read_mbs)).join('')+'</optgroup><optgroup label="Modèles de disques">'+st.drives.map(d=>o(d.name,d.read_mbs)).join('')+'</optgroup>';
   $('ssd').selectedIndex=st.types.findIndex(t=>t.id==='nvme-gen4');
-  syncRam(undefined);
-  $('ram').value=16;
-  document.addEventListener('input',update);
-  update();
+  const provs=[...new Set(M.models.map(m=>m.provider))].sort(),tags=[...new Set(M.models.flatMap(m=>m.tags))].sort();
+  $('fp').innerHTML='<option value="">Tous les éditeurs</option>'+provs.map(p=>`<option>${p}</option>`).join('');
+  $('ft').innerHTML='<option value="">Toutes les catégories</option>'+tags.map(t=>`<option>${t}</option>`).join('');
+  $('zip').href=REPO+'/archive/refs/heads/main.zip';$('gh').href=REPO;
+  const nq=M.models.reduce((a,m)=>a+m.quantizations.length,0);
+  document.querySelectorAll('[data-n]').forEach(e=>count(e,{M:M.models.length,P:provs.length,Q:nq}[e.dataset.n]));
+  $('hn').textContent=M.models.length;
+  syncRam(undefined);$('ram').value=16;
+  let s={};try{s=JSON.parse(localStorage.llm||'{}')}catch(e){}
+  ['cpu','gpu','free','res','n'].forEach(k=>{if(s[k]!=null)$(k).value=s[k]});
+  update();setv('ram',s.ram);setv('rt',s.rt);update();['rs','rc','ssd'].forEach(k=>setv(k,s[k]));update();
+  document.addEventListener('input',e=>{if(e.target.closest('form'))save();update()});
+  document.querySelectorAll('pre[data-c]').forEach(p=>{const b=document.createElement('button');b.textContent='Copier';b.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(p.dataset.c);b.textContent='Copié';setTimeout(()=>b.textContent='Copier',1500)};p.append(b)});
+  $('grid').onclick=e=>{const c=e.target.closest('.mc');if(c)openM(+c.dataset.i)};
+  $('dlg').onclick=e=>{if(e.target===$('dlg')||e.target.classList.contains('x'))$('dlg').close()};
+  addEventListener('hashchange',route);route();
+}
+function save(){CFG={};['cpu','gpu','free','res','n','ram','rt','rs','rc','ssd'].forEach(k=>CFG[k]=$(k).value);try{localStorage.llm=JSON.stringify(CFG)}catch(e){}}
+function count(e,to){const t0=performance.now();(function s(t){const p=Math.min(1,(t-t0)/1100);e.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(s)})(t0)}
+function route(){
+  const p=['home','class','models','dl'].includes(location.hash.slice(1))?location.hash.slice(1):'home';
+  ['home','class','models','dl'].forEach(k=>{$('p-'+k).hidden=k!==p});
+  document.querySelectorAll('.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.p===p));scrollTo(0,0);
+  if(p==='class')requestAnimationFrame(update);
 }
 
 function syncRam(cpu){
-  const R=H.ram, fixed=cpu&&cpu.ram_options, chg=cpu!==lastCpu;
-  lastCpu=cpu;
-  opts($('ram'),fixed?cpu.ram_options:R.sizes_gb,null,v=>v+' Go');
-  $('rmore').hidden=!!fixed;
-  if(fixed)return;
-  const types=cpu?Object.keys(cpu.mem):Object.keys(R.types);
+  const Rm=H.ram,fixed=cpu&&cpu.ram_options,chg=cpu!==lastCpu;lastCpu=cpu;
+  opts($('ram'),fixed?cpu.ram_options:Rm.sizes_gb,null,v=>v+' Go');
+  $('rmore').hidden=!!fixed;if(fixed)return;
+  const types=cpu?Object.keys(cpu.mem):Object.keys(Rm.types);
   opts($('rt'),types,chg?(cpu?types[types.length-1]:'DDR4'):null);
-  const t=$('rt').value, cap=cpu?cpu.mem[t]:1e9, all=R.types[t].speeds_mts;
-  const sp=all.filter(s=>s<=cap), want=Math.min(DFLT[t]||0,cap);
+  const t=$('rt').value,cap=cpu?cpu.mem[t]:1e9,sp=Rm.types[t].speeds_mts.filter(s=>s<=cap),want=Math.min(DFLT[t]||0,cap);
   const def=[...sp].reverse().find(s=>s<=want)||sp[0];
   opts($('rs'),sp.length?sp:[cap],chg?def:null,v=>v+' MT/s');
-  opts($('rc'),R.channels,chg?(cpu&&cpu.channels||2):null);
+  opts($('rc'),Rm.channels,chg?(cpu&&cpu.channels||2):null);
 }
-
-const find=(list,v)=>list.find(x=>x.name.toLowerCase()===v.trim().toLowerCase());
+const find=(l,v)=>l.find(x=>x.name.toLowerCase()===v.trim().toLowerCase());
 
 function update(){
-  const cpu=find(H.cpus,$('cpu').value), gpu=find(H.gpus,$('gpu').value);
+  const cpu=find(H.cpus,$('cpu').value),gpu=find(H.gpus,$('gpu').value);
   syncRam(cpu);
-  const ram=+$('ram').value, uni=!!(cpu&&cpu.unified), dg=!uni&&gpu, n=+$('n').value;
+  const ram=+$('ram').value,res=+$('res').value,uni=!!(cpu&&cpu.unified),dg=!uni&&gpu,n=+$('n').value;
   $('nrow').hidden=!dg;
   const bw=(cpu&&cpu.bw_gbs)||(+$('rs').value*8*(+$('rc').value)/1000)||0;
-  const c={
-    uni,bw,ram,ssd:+$('free').value||0,read:+$('ssd').value||1,
-    gm:uni?ram*(ram<=36?.67:.75):dg?gpu.vram_gb*n:0,
-    gb:uni?bw:dg?gpu.bw_gbs:0,
-    ra:uni?0:Math.max(0,ram-2)
-  };
+  const c={uni,bw,ram,ssd:+$('free').value||0,read:+$('ssd').value||1,
+    gm:uni?ram*(ram<=36?.67:.75):dg?gpu.vram_gb*n:0,gb:uni?bw:dg?gpu.bw_gbs:0,ra:uni?0:Math.max(0,ram-res)};
   const top=(k,v)=>M.classes.filter(x=>x[k]<=v&&x.min_ssd_gb<=c.ssd).pop();
-  const cg=c.gm?top('min_vram_gb',c.gm):null, cc=uni?null:top('min_ram_gb',ram);
-  const idx=x=>x?M.classes.indexOf(x):-1;
-  const best=[cg,cc].sort((a,b)=>idx(b)-idx(a))[0];
+  const cg=c.gm?top('min_vram_gb',c.gm):null,cc=uni?null:top('min_ram_gb',ram-(res-8));
+  const idx=x=>x?M.classes.indexOf(x):-1,best=[cg,cc].sort((a,b)=>idx(b)-idx(a))[0];
+  R=M.models.map((m,i)=>({...ev(m,c),i})).sort((a,b)=>b.m.params_b-a.m.params_b);
+  const ok=r=>r.mode&&r.ssdOk,nok=R.filter(ok).length;
 
-  const rows=M.models.map(m=>ev(m,c)).sort((a,b)=>b.m.params_b-a.m.params_b);
-  const ok=r=>r.mode&&r.ssdOk;
-  const n_ok=rows.filter(ok).length;
-
-  $('sum').innerHTML=[
-    ['Classe atteinte',best?best.class:'Aucune',best?`modèles jusqu'à ${best.max_params_b}B (Q4)`:'RAM ou SSD insuffisants'],
-    ['Classe GPU',cg?cg.class:'Aucune',c.gm?`${f1(c.gm)} Go de mémoire`:'Pas de GPU'],
+  $('cls').textContent=best?best.class:'Aucune';
+  $('cls2').textContent=best?`Modèles jusqu'à ${best.max_params_b} Md de paramètres (Q4)`:'RAM ou espace disque insuffisants';
+  $('lad').innerHTML=M.classes.map(k=>`<span class="${idx(k)<idx(best)?'r':idx(k)===idx(best)?'c':''}">${k.class}</span>`).join('');
+  const sy=uni?0:res,av=uni?c.gm:c.ra,gp=dg?c.gm:0;
+  $('mem').innerHTML=(sy?`<div class="sy" style="flex-grow:${sy}">Système ${sy} Go</div>`:'')+`<div class="av" style="flex-grow:${av||.01}">${av?f1(av)+' Go '+(uni?'GPU':'RAM'):''}</div>`+(gp?`<div class="gp" style="flex-grow:${gp}">${gp} Go VRAM</div>`:'')+(uni?`<div style="flex-grow:${ram-c.gm}"></div>`:'');
+  $('memt').textContent=uni?'Mémoire unifiée : la part utilisable par le GPU est en couleur.':`RAM ${ram} Go dont ${sy} Go réservés au système.`;
+  $('sum').innerHTML=[['Classe GPU',cg?cg.class:'Aucune',c.gm?f1(c.gm)+' Go de mémoire':'Pas de GPU'],
+    ['Classe CPU',cc?cc.class:uni?'n/d':'Aucune',uni?'mémoire unifiée':f1(c.ra)+' Go utilisables'],
     ['Bande passante RAM',bw?Math.round(bw)+' Go/s':'n/d',ram+' Go'+(uni?' (unifiée)':'')],
-    ['Modèles compatibles',`${n_ok} / ${rows.length}`,'dans la liste']
-  ].map(([a,b,s])=>`<div class="st"><span>${a}</span><b>${b}</b><small>${s}</small></div>`).join('');
-
-  const lab={gpu:uni?'Mémoire unifiée':'GPU',part:'Partiel GPU + CPU',cpu:'CPU'};
-  const html=rows.filter(r=>!$('only').checked||ok(r)).map(r=>{
-    const s=!r.mode?['Trop lourd','bad']:!r.ssdOk?['SSD insuffisant','bad']:[lab[r.mode],r.mode==='gpu'?'ok':'warn'];
-    const q=r.q;
-    return `<tr><td>${r.m.name}<small>${r.m.provider}</small></td><td>${r.m.class}</td><td>${q.quant}</td><td>${q.size_gb.toFixed(1)} Go</td>`+
-      `<td><span class="tag ${s[1]}">${s[0]}</span></td>`+
-      `<td>${r.tps?'~'+(r.tps>=10?Math.round(r.tps):r.tps.toFixed(1))+' tok/s':'–'}</td>`+
-      `<td>${r.mode?dur(r.load):'–'}</td>`+
-      `<td><a href="${r.m.repo_url}" target="_blank" rel="noopener">Hugging Face</a></td></tr>`;
-  }).join('');
-  $('tb').innerHTML=html||'<tr><td colspan="8">Aucun modèle compatible avec cette configuration. Ajoute de la RAM ou un GPU avec plus de mémoire.</td></tr>';
+    ['Modèles compatibles',nok+' / '+R.length,'dans le catalogue']].map(([a,b,s])=>`<div><small>${a}</small><b>${b}</b><small>${s}</small></div>`).join('');
+  $('cfg').textContent=(cpu?cpu.name:'ta machine')+' · '+ram+' Go'+(dg?' · '+gpu.name+(n>1?' ×'+n:''):'');
+  renderGrid();
 }
 
+function fit(m,q,c){
+  const need=q.size_gb+1.5,fr=m.active_params_b?m.active_params_b/m.params_b:1,by=q.size_gb*fr;
+  let mode=null;
+  if(c.gm&&need<=c.gm)mode='gpu';else if(c.gm&&!c.uni&&need<=c.gm+c.ra)mode='part';else if(!c.uni&&need<=c.ra)mode='cpu';
+  if(!mode)return{m,q,mode,need};
+  let t=0;
+  if(mode==='gpu')t=c.gb*.65/by;else if(mode==='cpu')t=c.bw*.5/by;
+  else{const g=Math.max(0,Math.min(1,(c.gm-1.5)/q.size_gb));t=1/(g*by/(c.gb*.65)+(1-g)*by/(c.bw*.5))}
+  return{m,q,mode,need,tps:isFinite(t)?t:0,load:q.size_gb*1000/c.read,ssdOk:q.size_gb<=c.ssd};
+}
 function ev(m,c){
-  const fr=m.active_params_b?m.active_params_b/m.params_b:1;
-  const qs=[...m.quantizations].sort((a,b)=>b.size_gb-a.size_gb);
-  const small=qs[qs.length-1];
-  const q4=qs.find(q=>q.quant==='Q4_K_M')||small;
-  const alt=[q4,...[...qs].reverse()];
-  const need=q=>q.size_gb+1.5;
-  let mode=null,q=null;
-  if(c.gm){q=qs.find(x=>need(x)<=c.gm);if(q)mode='gpu'}
-  if(!mode&&c.gm&&!c.uni){q=alt.find(x=>need(x)<=c.gm+c.ra);if(q)mode='part'}
-  if(!mode&&!c.uni){q=alt.find(x=>need(x)<=c.ra);if(q)mode='cpu'}
-  if(!mode)return{m,q:small,mode:null};
-  const by=q.size_gb*fr;
-  let tps=0;
-  if(mode==='gpu')tps=c.gb*.65/by;
-  else if(mode==='cpu')tps=c.bw*.5/by;
-  else{
-    const g=Math.max(0,Math.min(1,(c.gm-1.5)/q.size_gb));
-    tps=1/(g*by/(c.gb*.65)+(1-g)*by/(c.bw*.5));
-  }
-  return{m,q,mode,tps:isFinite(tps)?tps:0,load:q.size_gb*1000/c.read,ssdOk:q.size_gb<=c.ssd};
+  const qs=[...m.quantizations].sort((a,b)=>b.size_gb-a.size_gb),small=qs[qs.length-1],q4=qs.find(q=>q.quant==='Q4_K_M')||small;
+  const g=qs.map(q=>fit(m,q,c)).find(r=>r.mode==='gpu');
+  return g||[q4,...[...qs].reverse()].map(q=>fit(m,q,c)).find(r=>r.mode)||{m,q:small,mode:null};
 }
+function stat(r){
+  const lab={gpu:H.cpus.find(x=>x.name===$('cpu').value&&x.unified)?'Mémoire unifiée':'GPU',part:'GPU + CPU',cpu:'CPU'};
+  return !r.mode?['Trop lourd','bad']:!r.ssdOk?['Disque insuffisant','bad']:[lab[r.mode],r.mode==='gpu'?'ok':'warn'];
+}
+const tps=t=>t?'~'+(t>=10?Math.round(t):t.toFixed(1))+' tok/s':'–';
+const dur=s=>s<60?Math.max(1,Math.round(s))+' s':(s/60).toFixed(1)+' min';
 
-function dur(s){return s<60?Math.max(1,Math.round(s))+' s':(s/60).toFixed(1)+' min'}
+function renderGrid(){
+  const q=$('q').value.toLowerCase(),fp=$('fp').value,ft=$('ft').value,only=$('only').checked;
+  const L=R.filter(r=>(!only||(r.mode&&r.ssdOk))&&(!fp||r.m.provider===fp)&&(!ft||r.m.tags.includes(ft))&&(!q||(r.m.name+r.m.provider+r.m.tags.join(' ')).toLowerCase().includes(q)));
+  $('cnt').textContent=L.length+' modèle'+(L.length>1?'s':'');
+  $('grid').innerHTML=L.map((r,k)=>{const s=stat(r),m=r.m;
+    return `<article class="mc" data-i="${r.i}" style="--h:${hue(m.provider)};animation-delay:${Math.min(k,20)*18}ms"><div class="hd">${logo(m.provider)}<div><h3>${m.name}</h3><small>${m.provider}</small></div></div>
+    <div class="meta"><span>${m.params_b} Md</span>${m.active_params_b?`<span>${m.active_params_b} Md actifs</span>`:''}<span>${m.class}</span>${m.tags.slice(0,3).map(t=>`<span>${t}</span>`).join('')}</div>
+    <div class="ft"><span class="tag ${s[1]}">${s[0]}</span><span>${tps(r.tps)}</span></div></article>`}).join('')||'<p class="mu">Aucun modèle ne correspond. Élargis les filtres ou décoche « Compatibles uniquement ».</p>';
+}
+['q','fp','ft','only'].forEach(k=>document.addEventListener('DOMContentLoaded',()=>$(k).addEventListener('input',()=>renderGrid())));
+
+function openM(i){
+  const m=M.models[i],cur=R.find(r=>r.i===i),c=cfgNow();
+  const desc=`${m.name} est un modèle de ${m.provider} de ${m.params_b} milliards de paramètres, adapté à ${m.tags.filter(t=>DESC[t]).map(t=>DESC[t]).join(', ')||'un usage général'}.`+(m.active_params_b?` Architecture MoE : seuls ${m.active_params_b} Md de paramètres travaillent à chaque token, donc il est rapide pour sa taille, mais le modèle entier doit tenir en mémoire.`:'');
+  const rows=m.quantizations.map(q=>{const r=fit(m,q,c),s=stat(r);return `<tr><td>${q.quant}</td><td>${q.size_gb.toFixed(1)} Go</td><td>${f1(r.need)} Go</td><td class="${s[1]}">${s[0]}</td><td>${tps(r.tps)}</td><td>${r.mode?dur(r.load):'–'}</td></tr>`}).join('');
+  $('dlg').innerHTML=`<div class="dc"><button class="x" aria-label="Fermer">×</button><div class="hd">${logo(m.provider,'xl')}<div><h2 style="margin:0">${m.name}</h2><span class="mu">${m.provider} · GGUF par ${m.gguf_by}</span></div></div>
+  <p>${desc}</p><div class="meta"><span>${m.params_b} Md paramètres</span><span>Classe ${m.class}</span>${m.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+  <h3>Sur ta machine (${$('cfg').textContent})</h3><div class="tw"><table><thead><tr><th>Quantification</th><th>Fichier</th><th>Mémoire requise</th><th>Exécution</th><th>Vitesse</th><th>Chargement</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <p class="mu" style="font-size:13px">Tailles approximatives : vérifie sur la page Hugging Face avant de télécharger.</p>
+  <p><a class="btn" href="${m.repo_url}" target="_blank" rel="noopener">Ouvrir sur Hugging Face</a></p></div>`;
+  $('dlg').showModal();
+}
+function cfgNow(){ // reconstruit le contexte de calcul
+  const cpu=find(H.cpus,$('cpu').value),gpu=find(H.gpus,$('gpu').value),ram=+$('ram').value,res=+$('res').value,uni=!!(cpu&&cpu.unified),dg=!uni&&gpu,n=+$('n').value;
+  const bw=(cpu&&cpu.bw_gbs)||(+$('rs').value*8*(+$('rc').value)/1000)||0;
+  return{uni,bw,ram,ssd:+$('free').value||0,read:+$('ssd').value||1,gm:uni?ram*(ram<=36?.67:.75):dg?gpu.vram_gb*n:0,gb:uni?bw:dg?gpu.bw_gbs:0,ra:uni?0:Math.max(0,ram-res)};
+}
 </script>
 </body>
 </html>
