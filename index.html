@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Local LLM – Calculateur de configuration</title>
+<style>
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#f4f6f8;color:#1c2229}
+header{background:#fff;border-bottom:1px solid #d5dae1;padding:16px 24px}
+header h1{margin:0;font-size:19px;font-weight:650}
+header p{margin:2px 0 0;color:#5a6673}
+main{display:grid;grid-template-columns:330px 1fr;gap:20px;padding:20px 24px;max-width:1280px;margin:auto;align-items:start}
+form,#out{background:#fff;border:1px solid #d5dae1;border-radius:4px;padding:16px}
+h2{margin:0 0 12px;font-size:15px;font-weight:650}
+label{display:block;font-weight:600;font-size:13px;margin-bottom:12px}
+input,select{display:block;width:100%;margin-top:4px;padding:7px 8px;font:inherit;font-weight:400;border:1px solid #aeb6c0;border-radius:3px;background:#fff;color:inherit}
+input:focus,select:focus,a:focus-visible{outline:2px solid #1f5fbf;outline-offset:1px}
+.row{display:grid;grid-template-columns:1fr 1.2fr .8fr;gap:8px}
+#sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));border:1px solid #d5dae1;border-radius:4px;margin-bottom:20px}
+.st{padding:10px 14px;border-left:1px solid #d5dae1;display:flex;flex-direction:column}
+.st:first-child{border-left:0}
+.st span,.st small{font-size:12px;color:#5a6673}
+.st b{font-size:22px;font-weight:650;font-variant-numeric:tabular-nums}
+.bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.bar h2{margin:0}
+.bar label{margin:0;font-weight:400}
+.bar input{display:inline-block;width:auto;margin:0 6px 0 0;vertical-align:middle}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid #e4e8ed;white-space:nowrap}
+th{font-size:12px;color:#5a6673;font-weight:600;background:#f9fafb}
+td small{display:block;color:#5a6673;font-size:12px}
+.tag{padding:1px 8px;border-radius:10px;font-size:12px;border:1px solid}
+.ok{color:#17703f;border-color:#17703f}.warn{color:#9a5700;border-color:#9a5700}.bad{color:#b0281c;border-color:#b0281c}
+a{color:#1f5fbf}
+.note{color:#5a6673;font-size:12px;margin:14px 0 0;max-width:80ch}
+#err{margin:20px 24px;color:#b0281c}
+@media(max-width:860px){main{grid-template-columns:1fr;padding:12px}.st{border-left:0;border-top:1px solid #d5dae1}.st:first-child{border-top:0}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Local LLM</h1>
+  <p>Calculateur de configuration : quels modèles ta machine peut faire tourner.</p>
+</header>
+<main>
+  <form autocomplete="off" onsubmit="return false">
+    <h2>Configuration</h2>
+    <label>Processeur
+      <input id="cpu" list="cpus" placeholder="Tape pour chercher, ex. Ryzen 7 7800X3D">
+    </label>
+    <label>Carte graphique
+      <input id="gpu" list="gpus" value="none" placeholder="none si aucune">
+    </label>
+    <label id="nrow" hidden>Nombre de GPU
+      <select id="n"><option>1</option><option>2</option><option>3</option><option>4</option><option>8</option></select>
+    </label>
+    <label>Mémoire vive (RAM)
+      <select id="ram"></select>
+    </label>
+    <div class="row" id="rmore">
+      <label>Type<select id="rt"></select></label>
+      <label>Vitesse<select id="rs"></select></label>
+      <label>Canaux<select id="rc"></select></label>
+    </div>
+    <label>Stockage
+      <select id="ssd"></select>
+    </label>
+    <label>Espace libre (Go)
+      <input id="free" type="number" min="1" value="256">
+    </label>
+  </form>
+
+  <section id="out">
+    <div id="sum"></div>
+    <div class="bar">
+      <h2>Modèles</h2>
+      <label><input type="checkbox" id="only" checked>Compatibles uniquement</label>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Modèle</th><th>Classe</th><th>Quantification</th><th>Taille</th><th>Exécution</th><th>Vitesse estimée</th><th>Chargement</th><th>Source</th></tr></thead>
+        <tbody id="tb"></tbody>
+      </table>
+    </div>
+    <p class="note">La mémoire nécessaire est la taille du fichier plus 1,5 Go (contexte et moteur). Sans GPU, 2 Go de RAM sont réservés au système. La vitesse est une estimation à partir de la bande passante mémoire (65 % pour un GPU, 50 % pour le CPU) et peut varier selon le logiciel et la longueur du contexte. Sur mémoire unifiée, environ 67 % de la RAM (75 % au-delà de 36 Go) est utilisable par le GPU.</p>
+  </section>
+</main>
+<p id="err" hidden>Impossible de charger models.json et hardware.json. Ouvre la page depuis un serveur (GitHub Pages, ou <code>python -m http.server</code> en local) et non en double-cliquant sur le fichier.</p>
+<datalist id="cpus"></datalist>
+<datalist id="gpus"></datalist>
+
+<script>
+const $=i=>document.getElementById(i), f1=n=>n.toFixed(1);
+const DFLT={DDR3:1600,DDR4:3200,DDR5:5600,LPDDR4X:4267,LPDDR5:6400,LPDDR5X:7500};
+let M,H,lastCpu=null;
+
+Promise.all(['models.json','hardware.json'].map(u=>fetch(u).then(r=>r.json())))
+  .then(([m,h])=>{M=m;H=h;init()})
+  .catch(()=>{$('err').hidden=false});
+
+function opts(sel,vals,keep,fmt=v=>v){
+  const k=keep??sel.value;
+  sel.innerHTML=vals.map(v=>`<option value="${v}">${fmt(v)}</option>`).join('');
+  if(vals.map(String).includes(String(k)))sel.value=k;
+}
+
+function init(){
+  $('cpus').innerHTML=H.cpus.map(c=>`<option value="${c.name}">`).join('');
+  $('gpus').innerHTML='<option value="none">'+H.gpus.map(g=>`<option value="${g.name}">`).join('');
+  const st=H.storage, o=(n,r)=>`<option value="${r}">${n} (${r} Mo/s)</option>`;
+  $('ssd').innerHTML='<optgroup label="Type de support">'+st.types.map(t=>o(t.name,t.read_mbs)).join('')+'</optgroup><optgroup label="Modèles de disques">'+st.drives.map(d=>o(d.name,d.read_mbs)).join('')+'</optgroup>';
+  $('ssd').selectedIndex=st.types.findIndex(t=>t.id==='nvme-gen4');
+  syncRam(undefined);
+  $('ram').value=16;
+  document.addEventListener('input',update);
+  update();
+}
+
+function syncRam(cpu){
+  const R=H.ram, fixed=cpu&&cpu.ram_options, chg=cpu!==lastCpu;
+  lastCpu=cpu;
+  opts($('ram'),fixed?cpu.ram_options:R.sizes_gb,null,v=>v+' Go');
+  $('rmore').hidden=!!fixed;
+  if(fixed)return;
+  const types=cpu?Object.keys(cpu.mem):Object.keys(R.types);
+  opts($('rt'),types,chg?(cpu?types[types.length-1]:'DDR4'):null);
+  const t=$('rt').value, cap=cpu?cpu.mem[t]:1e9, all=R.types[t].speeds_mts;
+  const sp=all.filter(s=>s<=cap), want=Math.min(DFLT[t]||0,cap);
+  const def=[...sp].reverse().find(s=>s<=want)||sp[0];
+  opts($('rs'),sp.length?sp:[cap],chg?def:null,v=>v+' MT/s');
+  opts($('rc'),R.channels,chg?(cpu&&cpu.channels||2):null);
+}
+
+const find=(list,v)=>list.find(x=>x.name.toLowerCase()===v.trim().toLowerCase());
+
+function update(){
+  const cpu=find(H.cpus,$('cpu').value), gpu=find(H.gpus,$('gpu').value);
+  syncRam(cpu);
+  const ram=+$('ram').value, uni=!!(cpu&&cpu.unified), dg=!uni&&gpu, n=+$('n').value;
+  $('nrow').hidden=!dg;
+  const bw=(cpu&&cpu.bw_gbs)||(+$('rs').value*8*(+$('rc').value)/1000)||0;
+  const c={
+    uni,bw,ram,ssd:+$('free').value||0,read:+$('ssd').value||1,
+    gm:uni?ram*(ram<=36?.67:.75):dg?gpu.vram_gb*n:0,
+    gb:uni?bw:dg?gpu.bw_gbs:0,
+    ra:uni?0:Math.max(0,ram-2)
+  };
+  const top=(k,v)=>M.classes.filter(x=>x[k]<=v&&x.min_ssd_gb<=c.ssd).pop();
+  const cg=c.gm?top('min_vram_gb',c.gm):null, cc=uni?null:top('min_ram_gb',ram);
+  const idx=x=>x?M.classes.indexOf(x):-1;
+  const best=[cg,cc].sort((a,b)=>idx(b)-idx(a))[0];
+
+  const rows=M.models.map(m=>ev(m,c)).sort((a,b)=>b.m.params_b-a.m.params_b);
+  const ok=r=>r.mode&&r.ssdOk;
+  const n_ok=rows.filter(ok).length;
+
+  $('sum').innerHTML=[
+    ['Classe atteinte',best?best.class:'Aucune',best?`modèles jusqu'à ${best.max_params_b}B (Q4)`:'RAM ou SSD insuffisants'],
+    ['Classe GPU',cg?cg.class:'Aucune',c.gm?`${f1(c.gm)} Go de mémoire`:'Pas de GPU'],
+    ['Bande passante RAM',bw?Math.round(bw)+' Go/s':'n/d',ram+' Go'+(uni?' (unifiée)':'')],
+    ['Modèles compatibles',`${n_ok} / ${rows.length}`,'dans la liste']
+  ].map(([a,b,s])=>`<div class="st"><span>${a}</span><b>${b}</b><small>${s}</small></div>`).join('');
+
+  const lab={gpu:uni?'Mémoire unifiée':'GPU',part:'Partiel GPU + CPU',cpu:'CPU'};
+  const html=rows.filter(r=>!$('only').checked||ok(r)).map(r=>{
+    const s=!r.mode?['Trop lourd','bad']:!r.ssdOk?['SSD insuffisant','bad']:[lab[r.mode],r.mode==='gpu'?'ok':'warn'];
+    const q=r.q;
+    return `<tr><td>${r.m.name}<small>${r.m.provider}</small></td><td>${r.m.class}</td><td>${q.quant}</td><td>${q.size_gb.toFixed(1)} Go</td>`+
+      `<td><span class="tag ${s[1]}">${s[0]}</span></td>`+
+      `<td>${r.tps?'~'+(r.tps>=10?Math.round(r.tps):r.tps.toFixed(1))+' tok/s':'–'}</td>`+
+      `<td>${r.mode?dur(r.load):'–'}</td>`+
+      `<td><a href="${r.m.repo_url}" target="_blank" rel="noopener">Hugging Face</a></td></tr>`;
+  }).join('');
+  $('tb').innerHTML=html||'<tr><td colspan="8">Aucun modèle compatible avec cette configuration. Ajoute de la RAM ou un GPU avec plus de mémoire.</td></tr>';
+}
+
+function ev(m,c){
+  const fr=m.active_params_b?m.active_params_b/m.params_b:1;
+  const qs=[...m.quantizations].sort((a,b)=>b.size_gb-a.size_gb);
+  const small=qs[qs.length-1];
+  const q4=qs.find(q=>q.quant==='Q4_K_M')||small;
+  const alt=[q4,...[...qs].reverse()];
+  const need=q=>q.size_gb+1.5;
+  let mode=null,q=null;
+  if(c.gm){q=qs.find(x=>need(x)<=c.gm);if(q)mode='gpu'}
+  if(!mode&&c.gm&&!c.uni){q=alt.find(x=>need(x)<=c.gm+c.ra);if(q)mode='part'}
+  if(!mode&&!c.uni){q=alt.find(x=>need(x)<=c.ra);if(q)mode='cpu'}
+  if(!mode)return{m,q:small,mode:null};
+  const by=q.size_gb*fr;
+  let tps=0;
+  if(mode==='gpu')tps=c.gb*.65/by;
+  else if(mode==='cpu')tps=c.bw*.5/by;
+  else{
+    const g=Math.max(0,Math.min(1,(c.gm-1.5)/q.size_gb));
+    tps=1/(g*by/(c.gb*.65)+(1-g)*by/(c.bw*.5));
+  }
+  return{m,q,mode,tps:isFinite(tps)?tps:0,load:q.size_gb*1000/c.read,ssdOk:q.size_gb<=c.ssd};
+}
+
+function dur(s){return s<60?Math.max(1,Math.round(s))+' s':(s/60).toFixed(1)+' min'}
+</script>
+</body>
+</html>

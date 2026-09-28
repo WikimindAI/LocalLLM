@@ -1,0 +1,792 @@
+{
+"schema_version":1,
+"updated":"2026-09-28",
+"notes":["bw_gbs = bande passante mémoire en Go/s (valeurs constructeur, arrondies).","cpus.mem = types de RAM pris en charge et vitesse max en MT/s ; channels = canaux mémoire (2 par défaut).","Les entrées avec ram_options ont une RAM soudée ou unifiée (bande passante fixe) ; unified = la mémoire est partagée avec le GPU.","read_mbs = lecture séquentielle typique en Mo/s."],
+"cpus":[
+  {"name": "Core i3-8100", "brand": "Intel", "family": "Core 8th gen", "cores": 4, "threads": 4, "mem": {"DDR4": 2666}},
+  {"name": "Core i5-8400", "brand": "Intel", "family": "Core 8th gen", "cores": 6, "threads": 6, "mem": {"DDR4": 2666}},
+  {"name": "Core i5-8600K", "brand": "Intel", "family": "Core 8th gen", "cores": 6, "threads": 6, "mem": {"DDR4": 2666}},
+  {"name": "Core i7-8700", "brand": "Intel", "family": "Core 8th gen", "cores": 6, "threads": 12, "mem": {"DDR4": 2666}},
+  {"name": "Core i7-8700K", "brand": "Intel", "family": "Core 8th gen", "cores": 6, "threads": 12, "mem": {"DDR4": 2666}},
+  {"name": "Core i3-9100", "brand": "Intel", "family": "Core 9th gen", "cores": 4, "threads": 4, "mem": {"DDR4": 2666}},
+  {"name": "Core i5-9400F", "brand": "Intel", "family": "Core 9th gen", "cores": 6, "threads": 6, "mem": {"DDR4": 2666}},
+  {"name": "Core i5-9600K", "brand": "Intel", "family": "Core 9th gen", "cores": 6, "threads": 6, "mem": {"DDR4": 2666}},
+  {"name": "Core i7-9700K", "brand": "Intel", "family": "Core 9th gen", "cores": 8, "threads": 8, "mem": {"DDR4": 2666}},
+  {"name": "Core i9-9900K", "brand": "Intel", "family": "Core 9th gen", "cores": 8, "threads": 16, "mem": {"DDR4": 2666}},
+  {"name": "Core i3-10100", "brand": "Intel", "family": "Core 10th gen", "cores": 4, "threads": 8, "mem": {"DDR4": 2666}},
+  {"name": "Core i5-10400", "brand": "Intel", "family": "Core 10th gen", "cores": 6, "threads": 12, "mem": {"DDR4": 2666}},
+  {"name": "Core i5-10600K", "brand": "Intel", "family": "Core 10th gen", "cores": 6, "threads": 12, "mem": {"DDR4": 2666}},
+  {"name": "Core i7-10700K", "brand": "Intel", "family": "Core 10th gen", "cores": 8, "threads": 16, "mem": {"DDR4": 2933}},
+  {"name": "Core i9-10900K", "brand": "Intel", "family": "Core 10th gen", "cores": 10, "threads": 20, "mem": {"DDR4": 2933}},
+  {"name": "Core i5-11400", "brand": "Intel", "family": "Core 11th gen", "cores": 6, "threads": 12, "mem": {"DDR4": 3200}},
+  {"name": "Core i5-11600K", "brand": "Intel", "family": "Core 11th gen", "cores": 6, "threads": 12, "mem": {"DDR4": 3200}},
+  {"name": "Core i7-11700K", "brand": "Intel", "family": "Core 11th gen", "cores": 8, "threads": 16, "mem": {"DDR4": 3200}},
+  {"name": "Core i9-11900K", "brand": "Intel", "family": "Core 11th gen", "cores": 8, "threads": 16, "mem": {"DDR4": 3200}},
+  {"name": "Core i3-12100", "brand": "Intel", "family": "Core 12th gen", "cores": 4, "threads": 8, "mem": {"DDR4": 3200, "DDR5": 4800}},
+  {"name": "Core i5-12400", "brand": "Intel", "family": "Core 12th gen", "cores": 6, "threads": 12, "mem": {"DDR4": 3200, "DDR5": 4800}},
+  {"name": "Core i5-12600K", "brand": "Intel", "family": "Core 12th gen", "cores": 10, "threads": 16, "mem": {"DDR4": 3200, "DDR5": 4800}},
+  {"name": "Core i7-12700K", "brand": "Intel", "family": "Core 12th gen", "cores": 12, "threads": 20, "mem": {"DDR4": 3200, "DDR5": 4800}},
+  {"name": "Core i9-12900K", "brand": "Intel", "family": "Core 12th gen", "cores": 16, "threads": 24, "mem": {"DDR4": 3200, "DDR5": 4800}},
+  {"name": "Core i3-13100", "brand": "Intel", "family": "Core 13th gen", "cores": 4, "threads": 8, "mem": {"DDR4": 3200, "DDR5": 5600}},
+  {"name": "Core i5-13400", "brand": "Intel", "family": "Core 13th gen", "cores": 10, "threads": 16, "mem": {"DDR4": 3200, "DDR5": 5600}},
+  {"name": "Core i5-13600K", "brand": "Intel", "family": "Core 13th gen", "cores": 14, "threads": 20, "mem": {"DDR4": 3200, "DDR5": 5600}},
+  {"name": "Core i7-13700K", "brand": "Intel", "family": "Core 13th gen", "cores": 16, "threads": 24, "mem": {"DDR4": 3200, "DDR5": 5600}},
+  {"name": "Core i9-13900K", "brand": "Intel", "family": "Core 13th gen", "cores": 24, "threads": 32, "mem": {"DDR4": 3200, "DDR5": 5600}},
+  {"name": "Core i5-14400", "brand": "Intel", "family": "Core 14th gen", "cores": 10, "threads": 16, "mem": {"DDR4": 3200, "DDR5": 5600}},
+  {"name": "Core i5-14600K", "brand": "Intel", "family": "Core 14th gen", "cores": 14, "threads": 20, "mem": {"DDR4": 3200, "DDR5": 5600}},
+  {"name": "Core i7-14700K", "brand": "Intel", "family": "Core 14th gen", "cores": 20, "threads": 28, "mem": {"DDR4": 3200, "DDR5": 5600}},
+  {"name": "Core i9-14900K", "brand": "Intel", "family": "Core 14th gen", "cores": 24, "threads": 32, "mem": {"DDR4": 3200, "DDR5": 5600}},
+  {"name": "Core Ultra 5 245K", "brand": "Intel", "family": "Core Ultra 200S", "cores": 14, "threads": 14, "mem": {"DDR5": 6400}},
+  {"name": "Core Ultra 7 265K", "brand": "Intel", "family": "Core Ultra 200S", "cores": 20, "threads": 20, "mem": {"DDR5": 6400}},
+  {"name": "Core Ultra 9 285K", "brand": "Intel", "family": "Core Ultra 200S", "cores": 24, "threads": 24, "mem": {"DDR5": 6400}},
+  {"name": "Core i5-1135G7", "brand": "Intel", "family": "Core 11th gen mobile", "cores": 4, "threads": 8, "mem": {"DDR4": 3200, "LPDDR4X": 4267}},
+  {"name": "Core i7-1165G7", "brand": "Intel", "family": "Core 11th gen mobile", "cores": 4, "threads": 8, "mem": {"DDR4": 3200, "LPDDR4X": 4267}},
+  {"name": "Core i5-1235U", "brand": "Intel", "family": "Core 12th/13th gen mobile", "cores": 10, "threads": 12, "mem": {"DDR4": 3200, "DDR5": 5200, "LPDDR5": 6400}},
+  {"name": "Core i7-1255U", "brand": "Intel", "family": "Core 12th/13th gen mobile", "cores": 10, "threads": 12, "mem": {"DDR4": 3200, "DDR5": 5200, "LPDDR5": 6400}},
+  {"name": "Core i7-12700H", "brand": "Intel", "family": "Core 12th/13th gen mobile", "cores": 14, "threads": 20, "mem": {"DDR4": 3200, "DDR5": 5200, "LPDDR5": 6400}},
+  {"name": "Core i9-12900H", "brand": "Intel", "family": "Core 12th/13th gen mobile", "cores": 14, "threads": 20, "mem": {"DDR4": 3200, "DDR5": 5200, "LPDDR5": 6400}},
+  {"name": "Core i5-13420H", "brand": "Intel", "family": "Core 12th/13th gen mobile", "cores": 8, "threads": 12, "mem": {"DDR4": 3200, "DDR5": 5200, "LPDDR5": 6400}},
+  {"name": "Core i5-13500H", "brand": "Intel", "family": "Core 12th/13th gen mobile", "cores": 12, "threads": 16, "mem": {"DDR4": 3200, "DDR5": 5200, "LPDDR5": 6400}},
+  {"name": "Core i7-13700H", "brand": "Intel", "family": "Core 12th/13th gen mobile", "cores": 14, "threads": 20, "mem": {"DDR4": 3200, "DDR5": 5200, "LPDDR5": 6400}},
+  {"name": "Core i9-13900H", "brand": "Intel", "family": "Core 12th/13th gen mobile", "cores": 14, "threads": 20, "mem": {"DDR4": 3200, "DDR5": 5200, "LPDDR5": 6400}},
+  {"name": "Core i7-13700HX", "brand": "Intel", "family": "Core HX mobile", "cores": 16, "threads": 24, "mem": {"DDR5": 5600}},
+  {"name": "Core i9-13980HX", "brand": "Intel", "family": "Core HX mobile", "cores": 24, "threads": 32, "mem": {"DDR5": 5600}},
+  {"name": "Core i7-14700HX", "brand": "Intel", "family": "Core HX mobile", "cores": 20, "threads": 28, "mem": {"DDR5": 5600}},
+  {"name": "Core i9-14900HX", "brand": "Intel", "family": "Core HX mobile", "cores": 24, "threads": 32, "mem": {"DDR5": 5600}},
+  {"name": "Core Ultra 5 125H", "brand": "Intel", "family": "Core Ultra H (Meteor/Arrow Lake)", "cores": 14, "threads": 18, "mem": {"DDR5": 5600, "LPDDR5X": 7467}},
+  {"name": "Core Ultra 7 155H", "brand": "Intel", "family": "Core Ultra H (Meteor/Arrow Lake)", "cores": 16, "threads": 22, "mem": {"DDR5": 5600, "LPDDR5X": 7467}},
+  {"name": "Core Ultra 9 185H", "brand": "Intel", "family": "Core Ultra H (Meteor/Arrow Lake)", "cores": 16, "threads": 22, "mem": {"DDR5": 5600, "LPDDR5X": 7467}},
+  {"name": "Core Ultra 7 255H", "brand": "Intel", "family": "Core Ultra H (Meteor/Arrow Lake)", "cores": 16, "threads": 16, "mem": {"DDR5": 6400, "LPDDR5X": 8400}},
+  {"name": "Core Ultra 9 285H", "brand": "Intel", "family": "Core Ultra H (Meteor/Arrow Lake)", "cores": 16, "threads": 16, "mem": {"DDR5": 6400, "LPDDR5X": 8400}},
+  {"name": "Core Ultra 7 255HX", "brand": "Intel", "family": "Core Ultra HX", "cores": 20, "threads": 20, "mem": {"DDR5": 6400}},
+  {"name": "Core Ultra 9 275HX", "brand": "Intel", "family": "Core Ultra HX", "cores": 24, "threads": 24, "mem": {"DDR5": 6400}},
+  {"name": "Core Ultra 5 226V", "brand": "Intel", "family": "Core Ultra 200V (Lunar Lake)", "cores": 8, "threads": 8, "mem": {"LPDDR5X": 8533}, "bw_gbs": 136.5, "ram_options": [16], "unified": false},
+  {"name": "Core Ultra 7 258V", "brand": "Intel", "family": "Core Ultra 200V (Lunar Lake)", "cores": 8, "threads": 8, "mem": {"LPDDR5X": 8533}, "bw_gbs": 136.5, "ram_options": [32], "unified": false},
+  {"name": "Core Ultra 9 288V", "brand": "Intel", "family": "Core Ultra 200V (Lunar Lake)", "cores": 8, "threads": 8, "mem": {"LPDDR5X": 8533}, "bw_gbs": 136.5, "ram_options": [32], "unified": false},
+  {"name": "Core i9-7980XE", "brand": "Intel", "family": "Core X / Xeon W", "cores": 18, "threads": 36, "mem": {"DDR4": 2666}, "channels": 4},
+  {"name": "Core i9-9980XE", "brand": "Intel", "family": "Core X / Xeon W", "cores": 18, "threads": 36, "mem": {"DDR4": 2666}, "channels": 4},
+  {"name": "Core i9-10980XE", "brand": "Intel", "family": "Core X / Xeon W", "cores": 18, "threads": 36, "mem": {"DDR4": 2933}, "channels": 4},
+  {"name": "Xeon W-2295", "brand": "Intel", "family": "Core X / Xeon W", "cores": 18, "threads": 36, "mem": {"DDR4": 2933}, "channels": 4},
+  {"name": "Xeon E5-2670 v3", "brand": "Intel", "family": "Xeon E5", "cores": 12, "threads": 24, "mem": {"DDR4": 2133}, "channels": 4},
+  {"name": "Xeon E5-2680 v4", "brand": "Intel", "family": "Xeon E5", "cores": 14, "threads": 28, "mem": {"DDR4": 2400}, "channels": 4},
+  {"name": "Xeon E5-2690 v4", "brand": "Intel", "family": "Xeon E5", "cores": 14, "threads": 28, "mem": {"DDR4": 2400}, "channels": 4},
+  {"name": "Xeon E5-2699 v4", "brand": "Intel", "family": "Xeon E5", "cores": 22, "threads": 44, "mem": {"DDR4": 2400}, "channels": 4},
+  {"name": "Xeon Gold 6248", "brand": "Intel", "family": "Xeon Scalable", "cores": 20, "threads": 40, "mem": {"DDR4": 2933}, "channels": 6},
+  {"name": "Xeon Gold 6330", "brand": "Intel", "family": "Xeon Scalable", "cores": 28, "threads": 56, "mem": {"DDR4": 3200}, "channels": 8},
+  {"name": "Xeon Platinum 8380", "brand": "Intel", "family": "Xeon Scalable", "cores": 40, "threads": 80, "mem": {"DDR4": 3200}, "channels": 8},
+  {"name": "Xeon w5-3435X", "brand": "Intel", "family": "Xeon Scalable", "cores": 16, "threads": 32, "mem": {"DDR5": 4800}, "channels": 8},
+  {"name": "Xeon w9-3495X", "brand": "Intel", "family": "Xeon Scalable", "cores": 56, "threads": 112, "mem": {"DDR5": 4800}, "channels": 8},
+  {"name": "Xeon Platinum 8480+", "brand": "Intel", "family": "Xeon Scalable", "cores": 56, "threads": 112, "mem": {"DDR5": 4800}, "channels": 8},
+  {"name": "Xeon 6980P", "brand": "Intel", "family": "Xeon 6", "cores": 128, "threads": 256, "mem": {"DDR5": 6400}, "channels": 12},
+  {"name": "Ryzen 5 2600", "brand": "AMD", "family": "Ryzen 2000", "cores": 6, "threads": 12, "mem": {"DDR4": 2933}},
+  {"name": "Ryzen 7 2700X", "brand": "AMD", "family": "Ryzen 2000", "cores": 8, "threads": 16, "mem": {"DDR4": 2933}},
+  {"name": "Ryzen 5 3600", "brand": "AMD", "family": "Ryzen 3000", "cores": 6, "threads": 12, "mem": {"DDR4": 3200}},
+  {"name": "Ryzen 5 3600X", "brand": "AMD", "family": "Ryzen 3000", "cores": 6, "threads": 12, "mem": {"DDR4": 3200}},
+  {"name": "Ryzen 7 3700X", "brand": "AMD", "family": "Ryzen 3000", "cores": 8, "threads": 16, "mem": {"DDR4": 3200}},
+  {"name": "Ryzen 7 3800X", "brand": "AMD", "family": "Ryzen 3000", "cores": 8, "threads": 16, "mem": {"DDR4": 3200}},
+  {"name": "Ryzen 9 3900X", "brand": "AMD", "family": "Ryzen 3000", "cores": 12, "threads": 24, "mem": {"DDR4": 3200}},
+  {"name": "Ryzen 9 3950X", "brand": "AMD", "family": "Ryzen 3000", "cores": 16, "threads": 32, "mem": {"DDR4": 3200}},
+  {"name": "Ryzen 5 5500", "brand": "AMD", "family": "Ryzen 5000", "cores": 6, "threads": 12, "mem": {"DDR4": 3200}},
+  {"name": "Ryzen 5 5600", "brand": "AMD", "family": "Ryzen 5000", "cores": 6, "threads": 12, "mem": {"DDR4": 3200}},
+  {"name": "Ryzen 5 5600X", "brand": "AMD", "family": "Ryzen 5000", "cores": 6, "threads": 12, "mem": {"DDR4": 3200}},
+  {"name": "Ryzen 5 5600G", "brand": "AMD", "family": "Ryzen 5000", "cores": 6, "threads": 12, "mem": {"DDR4": 3200}},
+  {"name": "Ryzen 7 5700G", "brand": "AMD", "family": "Ryzen 5000", "cores": 8, "threads": 16, "mem": {"DDR4": 3200}},
+  {"name": "Ryzen 7 5700X", "brand": "AMD", "family": "Ryzen 5000", "cores": 8, "threads": 16, "mem": {"DDR4": 3200}},
+  {"name": "Ryzen 7 5700X3D", "brand": "AMD", "family": "Ryzen 5000", "cores": 8, "threads": 16, "mem": {"DDR4": 3200}},
+  {"name": "Ryzen 7 5800X", "brand": "AMD", "family": "Ryzen 5000", "cores": 8, "threads": 16, "mem": {"DDR4": 3200}},
+  {"name": "Ryzen 7 5800X3D", "brand": "AMD", "family": "Ryzen 5000", "cores": 8, "threads": 16, "mem": {"DDR4": 3200}},
+  {"name": "Ryzen 9 5900X", "brand": "AMD", "family": "Ryzen 5000", "cores": 12, "threads": 24, "mem": {"DDR4": 3200}},
+  {"name": "Ryzen 9 5950X", "brand": "AMD", "family": "Ryzen 5000", "cores": 16, "threads": 32, "mem": {"DDR4": 3200}},
+  {"name": "Ryzen 5 7500F", "brand": "AMD", "family": "Ryzen 7000", "cores": 6, "threads": 12, "mem": {"DDR5": 5200}},
+  {"name": "Ryzen 5 7600", "brand": "AMD", "family": "Ryzen 7000", "cores": 6, "threads": 12, "mem": {"DDR5": 5200}},
+  {"name": "Ryzen 5 7600X", "brand": "AMD", "family": "Ryzen 7000", "cores": 6, "threads": 12, "mem": {"DDR5": 5200}},
+  {"name": "Ryzen 7 7700", "brand": "AMD", "family": "Ryzen 7000", "cores": 8, "threads": 16, "mem": {"DDR5": 5200}},
+  {"name": "Ryzen 7 7700X", "brand": "AMD", "family": "Ryzen 7000", "cores": 8, "threads": 16, "mem": {"DDR5": 5200}},
+  {"name": "Ryzen 7 7800X3D", "brand": "AMD", "family": "Ryzen 7000", "cores": 8, "threads": 16, "mem": {"DDR5": 5200}},
+  {"name": "Ryzen 9 7900", "brand": "AMD", "family": "Ryzen 7000", "cores": 12, "threads": 24, "mem": {"DDR5": 5200}},
+  {"name": "Ryzen 9 7900X", "brand": "AMD", "family": "Ryzen 7000", "cores": 12, "threads": 24, "mem": {"DDR5": 5200}},
+  {"name": "Ryzen 9 7950X", "brand": "AMD", "family": "Ryzen 7000", "cores": 16, "threads": 32, "mem": {"DDR5": 5200}},
+  {"name": "Ryzen 9 7950X3D", "brand": "AMD", "family": "Ryzen 7000", "cores": 16, "threads": 32, "mem": {"DDR5": 5200}},
+  {"name": "Ryzen 5 8500G", "brand": "AMD", "family": "Ryzen 8000G", "cores": 6, "threads": 12, "mem": {"DDR5": 5200}},
+  {"name": "Ryzen 5 8600G", "brand": "AMD", "family": "Ryzen 8000G", "cores": 6, "threads": 12, "mem": {"DDR5": 5200}},
+  {"name": "Ryzen 7 8700G", "brand": "AMD", "family": "Ryzen 8000G", "cores": 8, "threads": 16, "mem": {"DDR5": 5200}},
+  {"name": "Ryzen 5 9600X", "brand": "AMD", "family": "Ryzen 9000", "cores": 6, "threads": 12, "mem": {"DDR5": 5600}},
+  {"name": "Ryzen 7 9700X", "brand": "AMD", "family": "Ryzen 9000", "cores": 8, "threads": 16, "mem": {"DDR5": 5600}},
+  {"name": "Ryzen 7 9800X3D", "brand": "AMD", "family": "Ryzen 9000", "cores": 8, "threads": 16, "mem": {"DDR5": 5600}},
+  {"name": "Ryzen 9 9900X", "brand": "AMD", "family": "Ryzen 9000", "cores": 12, "threads": 24, "mem": {"DDR5": 5600}},
+  {"name": "Ryzen 9 9950X", "brand": "AMD", "family": "Ryzen 9000", "cores": 16, "threads": 32, "mem": {"DDR5": 5600}},
+  {"name": "Ryzen 9 9950X3D", "brand": "AMD", "family": "Ryzen 9000", "cores": 16, "threads": 32, "mem": {"DDR5": 5600}},
+  {"name": "Ryzen 5 5500U", "brand": "AMD", "family": "Ryzen 5000 mobile", "cores": 6, "threads": 12, "mem": {"DDR4": 3200, "LPDDR4X": 4267}},
+  {"name": "Ryzen 5 5600U", "brand": "AMD", "family": "Ryzen 5000 mobile", "cores": 6, "threads": 12, "mem": {"DDR4": 3200, "LPDDR4X": 4267}},
+  {"name": "Ryzen 7 5700U", "brand": "AMD", "family": "Ryzen 5000 mobile", "cores": 8, "threads": 16, "mem": {"DDR4": 3200, "LPDDR4X": 4267}},
+  {"name": "Ryzen 7 5800H", "brand": "AMD", "family": "Ryzen 5000 mobile", "cores": 8, "threads": 16, "mem": {"DDR4": 3200, "LPDDR4X": 4267}},
+  {"name": "Ryzen 9 5900HX", "brand": "AMD", "family": "Ryzen 5000 mobile", "cores": 8, "threads": 16, "mem": {"DDR4": 3200, "LPDDR4X": 4267}},
+  {"name": "Ryzen 5 6600H", "brand": "AMD", "family": "Ryzen 6000 mobile", "cores": 6, "threads": 12, "mem": {"DDR5": 4800, "LPDDR5": 6400}},
+  {"name": "Ryzen 7 6800H", "brand": "AMD", "family": "Ryzen 6000 mobile", "cores": 8, "threads": 16, "mem": {"DDR5": 4800, "LPDDR5": 6400}},
+  {"name": "Ryzen 9 6900HX", "brand": "AMD", "family": "Ryzen 6000 mobile", "cores": 8, "threads": 16, "mem": {"DDR5": 4800, "LPDDR5": 6400}},
+  {"name": "Ryzen 7 7735HS", "brand": "AMD", "family": "Ryzen 7000/8000 mobile", "cores": 8, "threads": 16, "mem": {"DDR5": 4800}},
+  {"name": "Ryzen 7 7840HS", "brand": "AMD", "family": "Ryzen 7000/8000 mobile", "cores": 8, "threads": 16, "mem": {"DDR5": 5600, "LPDDR5X": 7500}},
+  {"name": "Ryzen 9 7940HS", "brand": "AMD", "family": "Ryzen 7000/8000 mobile", "cores": 8, "threads": 16, "mem": {"DDR5": 5600, "LPDDR5X": 7500}},
+  {"name": "Ryzen 7 8840HS", "brand": "AMD", "family": "Ryzen 7000/8000 mobile", "cores": 8, "threads": 16, "mem": {"DDR5": 5600, "LPDDR5X": 7500}},
+  {"name": "Ryzen 9 8945HS", "brand": "AMD", "family": "Ryzen 7000/8000 mobile", "cores": 8, "threads": 16, "mem": {"DDR5": 5600, "LPDDR5X": 7500}},
+  {"name": "Ryzen 7 7745HX", "brand": "AMD", "family": "Ryzen HX mobile", "cores": 8, "threads": 16, "mem": {"DDR5": 5200}},
+  {"name": "Ryzen 9 7845HX", "brand": "AMD", "family": "Ryzen HX mobile", "cores": 12, "threads": 24, "mem": {"DDR5": 5200}},
+  {"name": "Ryzen 9 7945HX", "brand": "AMD", "family": "Ryzen HX mobile", "cores": 16, "threads": 32, "mem": {"DDR5": 5200}},
+  {"name": "Ryzen 9 9850HX", "brand": "AMD", "family": "Ryzen HX mobile", "cores": 12, "threads": 24, "mem": {"DDR5": 5600}},
+  {"name": "Ryzen 9 9955HX", "brand": "AMD", "family": "Ryzen HX mobile", "cores": 16, "threads": 32, "mem": {"DDR5": 5600}},
+  {"name": "Ryzen 9 9955HX3D", "brand": "AMD", "family": "Ryzen HX mobile", "cores": 16, "threads": 32, "mem": {"DDR5": 5600}},
+  {"name": "Ryzen AI 5 340", "brand": "AMD", "family": "Ryzen AI 300", "cores": 6, "threads": 12, "mem": {"DDR5": 5600, "LPDDR5X": 7500}},
+  {"name": "Ryzen AI 7 350", "brand": "AMD", "family": "Ryzen AI 300", "cores": 8, "threads": 16, "mem": {"DDR5": 5600, "LPDDR5X": 7500}},
+  {"name": "Ryzen AI 9 365", "brand": "AMD", "family": "Ryzen AI 300", "cores": 10, "threads": 20, "mem": {"DDR5": 5600, "LPDDR5X": 7500}},
+  {"name": "Ryzen AI 9 HX 370", "brand": "AMD", "family": "Ryzen AI 300", "cores": 12, "threads": 24, "mem": {"DDR5": 5600, "LPDDR5X": 7500}},
+  {"name": "Ryzen AI Max 385", "brand": "AMD", "family": "Ryzen AI Max (Strix Halo)", "cores": 8, "threads": 16, "mem": {"LPDDR5X": 8000}, "bw_gbs": 256, "ram_options": [32, 64], "unified": true},
+  {"name": "Ryzen AI Max 390", "brand": "AMD", "family": "Ryzen AI Max (Strix Halo)", "cores": 12, "threads": 24, "mem": {"LPDDR5X": 8000}, "bw_gbs": 256, "ram_options": [32, 64, 128], "unified": true},
+  {"name": "Ryzen AI Max+ 395", "brand": "AMD", "family": "Ryzen AI Max (Strix Halo)", "cores": 16, "threads": 32, "mem": {"LPDDR5X": 8000}, "bw_gbs": 256, "ram_options": [32, 64, 96, 128], "unified": true},
+  {"name": "Threadripper 1950X", "brand": "AMD", "family": "Threadripper", "cores": 16, "threads": 32, "mem": {"DDR4": 2666}, "channels": 4},
+  {"name": "Threadripper 2990WX", "brand": "AMD", "family": "Threadripper", "cores": 32, "threads": 64, "mem": {"DDR4": 2933}, "channels": 4},
+  {"name": "Threadripper 3960X", "brand": "AMD", "family": "Threadripper", "cores": 24, "threads": 48, "mem": {"DDR4": 3200}, "channels": 4},
+  {"name": "Threadripper 3970X", "brand": "AMD", "family": "Threadripper", "cores": 32, "threads": 64, "mem": {"DDR4": 3200}, "channels": 4},
+  {"name": "Threadripper 3990X", "brand": "AMD", "family": "Threadripper", "cores": 64, "threads": 128, "mem": {"DDR4": 3200}, "channels": 4},
+  {"name": "Threadripper PRO 5945WX", "brand": "AMD", "family": "Threadripper PRO", "cores": 12, "threads": 24, "mem": {"DDR4": 3200}, "channels": 8},
+  {"name": "Threadripper PRO 5965WX", "brand": "AMD", "family": "Threadripper PRO", "cores": 24, "threads": 48, "mem": {"DDR4": 3200}, "channels": 8},
+  {"name": "Threadripper PRO 5995WX", "brand": "AMD", "family": "Threadripper PRO", "cores": 64, "threads": 128, "mem": {"DDR4": 3200}, "channels": 8},
+  {"name": "Threadripper 7960X", "brand": "AMD", "family": "Threadripper", "cores": 24, "threads": 48, "mem": {"DDR5": 5200}, "channels": 4},
+  {"name": "Threadripper 7970X", "brand": "AMD", "family": "Threadripper", "cores": 32, "threads": 64, "mem": {"DDR5": 5200}, "channels": 4},
+  {"name": "Threadripper 7980X", "brand": "AMD", "family": "Threadripper", "cores": 64, "threads": 128, "mem": {"DDR5": 5200}, "channels": 4},
+  {"name": "Threadripper PRO 7965WX", "brand": "AMD", "family": "Threadripper PRO", "cores": 24, "threads": 48, "mem": {"DDR5": 5200}, "channels": 8},
+  {"name": "Threadripper PRO 7975WX", "brand": "AMD", "family": "Threadripper PRO", "cores": 32, "threads": 64, "mem": {"DDR5": 5200}, "channels": 8},
+  {"name": "Threadripper PRO 7985WX", "brand": "AMD", "family": "Threadripper PRO", "cores": 64, "threads": 128, "mem": {"DDR5": 5200}, "channels": 8},
+  {"name": "Threadripper PRO 7995WX", "brand": "AMD", "family": "Threadripper PRO", "cores": 96, "threads": 192, "mem": {"DDR5": 5200}, "channels": 8},
+  {"name": "EPYC 7302", "brand": "AMD", "family": "EPYC 7002/7003", "cores": 16, "threads": 32, "mem": {"DDR4": 3200}, "channels": 8},
+  {"name": "EPYC 7402", "brand": "AMD", "family": "EPYC 7002/7003", "cores": 24, "threads": 48, "mem": {"DDR4": 3200}, "channels": 8},
+  {"name": "EPYC 7452", "brand": "AMD", "family": "EPYC 7002/7003", "cores": 32, "threads": 64, "mem": {"DDR4": 3200}, "channels": 8},
+  {"name": "EPYC 7742", "brand": "AMD", "family": "EPYC 7002/7003", "cores": 64, "threads": 128, "mem": {"DDR4": 3200}, "channels": 8},
+  {"name": "EPYC 7763", "brand": "AMD", "family": "EPYC 7002/7003", "cores": 64, "threads": 128, "mem": {"DDR4": 3200}, "channels": 8},
+  {"name": "EPYC 9124", "brand": "AMD", "family": "EPYC 9004", "cores": 16, "threads": 32, "mem": {"DDR5": 4800}, "channels": 12},
+  {"name": "EPYC 9354", "brand": "AMD", "family": "EPYC 9004", "cores": 32, "threads": 64, "mem": {"DDR5": 4800}, "channels": 12},
+  {"name": "EPYC 9454", "brand": "AMD", "family": "EPYC 9004", "cores": 48, "threads": 96, "mem": {"DDR5": 4800}, "channels": 12},
+  {"name": "EPYC 9654", "brand": "AMD", "family": "EPYC 9004", "cores": 96, "threads": 192, "mem": {"DDR5": 4800}, "channels": 12},
+  {"name": "EPYC 9755", "brand": "AMD", "family": "EPYC 9005", "cores": 128, "threads": 256, "mem": {"DDR5": 6400}, "channels": 12},
+  {"name": "EPYC 9965", "brand": "AMD", "family": "EPYC 9005", "cores": 192, "threads": 384, "mem": {"DDR5": 6400}, "channels": 12},
+  {"name": "Apple M1", "brand": "Apple", "family": "Apple Silicon", "cores": 8, "threads": 8, "mem": {"Unified": 0}, "bw_gbs": 68.3, "ram_options": [8, 16], "unified": true},
+  {"name": "Apple M1 Pro", "brand": "Apple", "family": "Apple Silicon", "cores": 10, "threads": 10, "mem": {"Unified": 0}, "bw_gbs": 200, "ram_options": [16, 32], "unified": true},
+  {"name": "Apple M1 Max", "brand": "Apple", "family": "Apple Silicon", "cores": 10, "threads": 10, "mem": {"Unified": 0}, "bw_gbs": 400, "ram_options": [32, 64], "unified": true},
+  {"name": "Apple M1 Ultra", "brand": "Apple", "family": "Apple Silicon", "cores": 20, "threads": 20, "mem": {"Unified": 0}, "bw_gbs": 800, "ram_options": [64, 128], "unified": true},
+  {"name": "Apple M2", "brand": "Apple", "family": "Apple Silicon", "cores": 8, "threads": 8, "mem": {"Unified": 0}, "bw_gbs": 100, "ram_options": [8, 16, 24], "unified": true},
+  {"name": "Apple M2 Pro", "brand": "Apple", "family": "Apple Silicon", "cores": 12, "threads": 12, "mem": {"Unified": 0}, "bw_gbs": 200, "ram_options": [16, 32], "unified": true},
+  {"name": "Apple M2 Max", "brand": "Apple", "family": "Apple Silicon", "cores": 12, "threads": 12, "mem": {"Unified": 0}, "bw_gbs": 400, "ram_options": [32, 64, 96], "unified": true},
+  {"name": "Apple M2 Ultra", "brand": "Apple", "family": "Apple Silicon", "cores": 24, "threads": 24, "mem": {"Unified": 0}, "bw_gbs": 800, "ram_options": [64, 128, 192], "unified": true},
+  {"name": "Apple M3", "brand": "Apple", "family": "Apple Silicon", "cores": 8, "threads": 8, "mem": {"Unified": 0}, "bw_gbs": 100, "ram_options": [8, 16, 24], "unified": true},
+  {"name": "Apple M3 Pro", "brand": "Apple", "family": "Apple Silicon", "cores": 12, "threads": 12, "mem": {"Unified": 0}, "bw_gbs": 150, "ram_options": [18, 36], "unified": true},
+  {"name": "Apple M3 Max (14-core CPU)", "brand": "Apple", "family": "Apple Silicon", "cores": 14, "threads": 14, "mem": {"Unified": 0}, "bw_gbs": 300, "ram_options": [36, 96], "unified": true},
+  {"name": "Apple M3 Max (16-core CPU)", "brand": "Apple", "family": "Apple Silicon", "cores": 16, "threads": 16, "mem": {"Unified": 0}, "bw_gbs": 400, "ram_options": [48, 64, 128], "unified": true},
+  {"name": "Apple M3 Ultra", "brand": "Apple", "family": "Apple Silicon", "cores": 32, "threads": 32, "mem": {"Unified": 0}, "bw_gbs": 819, "ram_options": [96, 256, 512], "unified": true},
+  {"name": "Apple M4", "brand": "Apple", "family": "Apple Silicon", "cores": 10, "threads": 10, "mem": {"Unified": 0}, "bw_gbs": 120, "ram_options": [16, 24, 32], "unified": true},
+  {"name": "Apple M4 Pro", "brand": "Apple", "family": "Apple Silicon", "cores": 14, "threads": 14, "mem": {"Unified": 0}, "bw_gbs": 273, "ram_options": [24, 48, 64], "unified": true},
+  {"name": "Apple M4 Max (14-core CPU)", "brand": "Apple", "family": "Apple Silicon", "cores": 14, "threads": 14, "mem": {"Unified": 0}, "bw_gbs": 410, "ram_options": [36, 48], "unified": true},
+  {"name": "Apple M4 Max (16-core CPU)", "brand": "Apple", "family": "Apple Silicon", "cores": 16, "threads": 16, "mem": {"Unified": 0}, "bw_gbs": 546, "ram_options": [48, 64, 128], "unified": true},
+  {"name": "Apple M5", "brand": "Apple", "family": "Apple Silicon", "cores": 10, "threads": 10, "mem": {"Unified": 0}, "bw_gbs": 153, "ram_options": [16, 24, 32], "unified": true},
+  {"name": "Snapdragon X Plus X1P-42-100", "brand": "Qualcomm", "family": "Snapdragon X", "cores": 8, "threads": 8, "mem": {"LPDDR5X": 8448}, "bw_gbs": 135, "ram_options": [16, 32], "unified": false},
+  {"name": "Snapdragon X Plus X1P-64-100", "brand": "Qualcomm", "family": "Snapdragon X", "cores": 10, "threads": 10, "mem": {"LPDDR5X": 8448}, "bw_gbs": 135, "ram_options": [16, 32], "unified": false},
+  {"name": "Snapdragon X Elite X1E-78-100", "brand": "Qualcomm", "family": "Snapdragon X", "cores": 12, "threads": 12, "mem": {"LPDDR5X": 8448}, "bw_gbs": 135, "ram_options": [16, 32, 64], "unified": false},
+  {"name": "Snapdragon X Elite X1E-80-100", "brand": "Qualcomm", "family": "Snapdragon X", "cores": 12, "threads": 12, "mem": {"LPDDR5X": 8448}, "bw_gbs": 135, "ram_options": [16, 32, 64], "unified": false},
+  {"name": "Snapdragon X Elite X1E-84-100", "brand": "Qualcomm", "family": "Snapdragon X", "cores": 12, "threads": 12, "mem": {"LPDDR5X": 8448}, "bw_gbs": 135, "ram_options": [32, 64], "unified": false},
+  {"name": "Raspberry Pi 4 (Cortex-A72)", "brand": "Broadcom", "family": "Raspberry Pi", "cores": 4, "threads": 4, "mem": {"LPDDR4X": 4267}, "bw_gbs": 12.8, "ram_options": [1, 2, 4, 8], "unified": false},
+  {"name": "Raspberry Pi 5 (Cortex-A76)", "brand": "Broadcom", "family": "Raspberry Pi", "cores": 4, "threads": 4, "mem": {"LPDDR4X": 4267}, "bw_gbs": 17.1, "ram_options": [2, 4, 8, 16], "unified": false},
+  {"name": "Jetson Orin Nano", "brand": "NVIDIA", "family": "Jetson / DGX", "cores": 6, "threads": 6, "mem": {"LPDDR5X": 8533}, "bw_gbs": 68, "ram_options": [4, 8], "unified": true},
+  {"name": "Jetson Orin NX", "brand": "NVIDIA", "family": "Jetson / DGX", "cores": 8, "threads": 8, "mem": {"LPDDR5X": 8533}, "bw_gbs": 102, "ram_options": [8, 16], "unified": true},
+  {"name": "Jetson AGX Orin", "brand": "NVIDIA", "family": "Jetson / DGX", "cores": 12, "threads": 12, "mem": {"LPDDR5X": 8533}, "bw_gbs": 204.8, "ram_options": [32, 64], "unified": true},
+  {"name": "DGX Spark (GB10)", "brand": "NVIDIA", "family": "Jetson / DGX", "cores": 20, "threads": 20, "mem": {"LPDDR5X": 8533}, "bw_gbs": 273, "ram_options": [128], "unified": true}
+],
+"gpus":[
+  {"name": "GeForce GT 1030", "vendor": "NVIDIA", "vram_gb": 2, "bw_gbs": 48},
+  {"name": "GeForce GTX 1050 Ti", "vendor": "NVIDIA", "vram_gb": 4, "bw_gbs": 112},
+  {"name": "GeForce GTX 1060 3GB", "vendor": "NVIDIA", "vram_gb": 3, "bw_gbs": 168},
+  {"name": "GeForce GTX 1060 6GB", "vendor": "NVIDIA", "vram_gb": 6, "bw_gbs": 192},
+  {"name": "GeForce GTX 1070", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 256},
+  {"name": "GeForce GTX 1070 Ti", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 256},
+  {"name": "GeForce GTX 1080", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 320},
+  {"name": "GeForce GTX 1080 Ti", "vendor": "NVIDIA", "vram_gb": 11, "bw_gbs": 484},
+  {"name": "GeForce GTX 1650", "vendor": "NVIDIA", "vram_gb": 4, "bw_gbs": 128},
+  {"name": "GeForce GTX 1650 Super", "vendor": "NVIDIA", "vram_gb": 4, "bw_gbs": 192},
+  {"name": "GeForce GTX 1660", "vendor": "NVIDIA", "vram_gb": 6, "bw_gbs": 192},
+  {"name": "GeForce GTX 1660 Super", "vendor": "NVIDIA", "vram_gb": 6, "bw_gbs": 336},
+  {"name": "GeForce GTX 1660 Ti", "vendor": "NVIDIA", "vram_gb": 6, "bw_gbs": 288},
+  {"name": "GeForce RTX 2060", "vendor": "NVIDIA", "vram_gb": 6, "bw_gbs": 336},
+  {"name": "GeForce RTX 2060 Super", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 448},
+  {"name": "GeForce RTX 2070", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 448},
+  {"name": "GeForce RTX 2070 Super", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 448},
+  {"name": "GeForce RTX 2080", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 448},
+  {"name": "GeForce RTX 2080 Super", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 496},
+  {"name": "GeForce RTX 2080 Ti", "vendor": "NVIDIA", "vram_gb": 11, "bw_gbs": 616},
+  {"name": "Titan RTX", "vendor": "NVIDIA", "vram_gb": 24, "bw_gbs": 672},
+  {"name": "GeForce RTX 3050 6GB", "vendor": "NVIDIA", "vram_gb": 6, "bw_gbs": 168},
+  {"name": "GeForce RTX 3050 8GB", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 224},
+  {"name": "GeForce RTX 3060 12GB", "vendor": "NVIDIA", "vram_gb": 12, "bw_gbs": 360},
+  {"name": "GeForce RTX 3060 Ti", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 448},
+  {"name": "GeForce RTX 3070", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 448},
+  {"name": "GeForce RTX 3070 Ti", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 608},
+  {"name": "GeForce RTX 3080 10GB", "vendor": "NVIDIA", "vram_gb": 10, "bw_gbs": 760},
+  {"name": "GeForce RTX 3080 12GB", "vendor": "NVIDIA", "vram_gb": 12, "bw_gbs": 912},
+  {"name": "GeForce RTX 3080 Ti", "vendor": "NVIDIA", "vram_gb": 12, "bw_gbs": 912},
+  {"name": "GeForce RTX 3090", "vendor": "NVIDIA", "vram_gb": 24, "bw_gbs": 936},
+  {"name": "GeForce RTX 3090 Ti", "vendor": "NVIDIA", "vram_gb": 24, "bw_gbs": 1008},
+  {"name": "GeForce RTX 4060", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 272},
+  {"name": "GeForce RTX 4060 Ti 8GB", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 288},
+  {"name": "GeForce RTX 4060 Ti 16GB", "vendor": "NVIDIA", "vram_gb": 16, "bw_gbs": 288},
+  {"name": "GeForce RTX 4070", "vendor": "NVIDIA", "vram_gb": 12, "bw_gbs": 504},
+  {"name": "GeForce RTX 4070 Super", "vendor": "NVIDIA", "vram_gb": 12, "bw_gbs": 504},
+  {"name": "GeForce RTX 4070 Ti", "vendor": "NVIDIA", "vram_gb": 12, "bw_gbs": 504},
+  {"name": "GeForce RTX 4070 Ti Super", "vendor": "NVIDIA", "vram_gb": 16, "bw_gbs": 672},
+  {"name": "GeForce RTX 4080", "vendor": "NVIDIA", "vram_gb": 16, "bw_gbs": 717},
+  {"name": "GeForce RTX 4080 Super", "vendor": "NVIDIA", "vram_gb": 16, "bw_gbs": 736},
+  {"name": "GeForce RTX 4090", "vendor": "NVIDIA", "vram_gb": 24, "bw_gbs": 1008},
+  {"name": "GeForce RTX 5050", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 320},
+  {"name": "GeForce RTX 5060", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 448},
+  {"name": "GeForce RTX 5060 Ti 8GB", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 448},
+  {"name": "GeForce RTX 5060 Ti 16GB", "vendor": "NVIDIA", "vram_gb": 16, "bw_gbs": 448},
+  {"name": "GeForce RTX 5070", "vendor": "NVIDIA", "vram_gb": 12, "bw_gbs": 672},
+  {"name": "GeForce RTX 5070 Ti", "vendor": "NVIDIA", "vram_gb": 16, "bw_gbs": 896},
+  {"name": "GeForce RTX 5080", "vendor": "NVIDIA", "vram_gb": 16, "bw_gbs": 960},
+  {"name": "GeForce RTX 5090", "vendor": "NVIDIA", "vram_gb": 32, "bw_gbs": 1792},
+  {"name": "GeForce RTX 3050 Laptop 4GB", "vendor": "NVIDIA", "vram_gb": 4, "bw_gbs": 192},
+  {"name": "GeForce RTX 3060 Laptop", "vendor": "NVIDIA", "vram_gb": 6, "bw_gbs": 336},
+  {"name": "GeForce RTX 3070 Laptop", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 448},
+  {"name": "GeForce RTX 3080 Laptop 16GB", "vendor": "NVIDIA", "vram_gb": 16, "bw_gbs": 448},
+  {"name": "GeForce RTX 4050 Laptop", "vendor": "NVIDIA", "vram_gb": 6, "bw_gbs": 192},
+  {"name": "GeForce RTX 4060 Laptop", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 256},
+  {"name": "GeForce RTX 4070 Laptop", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 256},
+  {"name": "GeForce RTX 4080 Laptop", "vendor": "NVIDIA", "vram_gb": 12, "bw_gbs": 432},
+  {"name": "GeForce RTX 4090 Laptop", "vendor": "NVIDIA", "vram_gb": 16, "bw_gbs": 576},
+  {"name": "GeForce RTX 5060 Laptop", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 384},
+  {"name": "GeForce RTX 5070 Laptop", "vendor": "NVIDIA", "vram_gb": 8, "bw_gbs": 384},
+  {"name": "GeForce RTX 5070 Ti Laptop", "vendor": "NVIDIA", "vram_gb": 12, "bw_gbs": 672},
+  {"name": "GeForce RTX 5080 Laptop", "vendor": "NVIDIA", "vram_gb": 16, "bw_gbs": 896},
+  {"name": "GeForce RTX 5090 Laptop", "vendor": "NVIDIA", "vram_gb": 24, "bw_gbs": 896},
+  {"name": "RTX A2000 12GB", "vendor": "NVIDIA", "vram_gb": 12, "bw_gbs": 288},
+  {"name": "RTX A4000", "vendor": "NVIDIA", "vram_gb": 16, "bw_gbs": 448},
+  {"name": "RTX A5000", "vendor": "NVIDIA", "vram_gb": 24, "bw_gbs": 768},
+  {"name": "RTX A6000", "vendor": "NVIDIA", "vram_gb": 48, "bw_gbs": 768},
+  {"name": "RTX 4000 Ada", "vendor": "NVIDIA", "vram_gb": 20, "bw_gbs": 360},
+  {"name": "RTX 5000 Ada", "vendor": "NVIDIA", "vram_gb": 32, "bw_gbs": 576},
+  {"name": "RTX 6000 Ada", "vendor": "NVIDIA", "vram_gb": 48, "bw_gbs": 960},
+  {"name": "RTX PRO 6000 Blackwell", "vendor": "NVIDIA", "vram_gb": 96, "bw_gbs": 1792},
+  {"name": "Tesla P40", "vendor": "NVIDIA", "vram_gb": 24, "bw_gbs": 346},
+  {"name": "Tesla T4", "vendor": "NVIDIA", "vram_gb": 16, "bw_gbs": 320},
+  {"name": "Tesla V100 16GB", "vendor": "NVIDIA", "vram_gb": 16, "bw_gbs": 900},
+  {"name": "Tesla V100 32GB", "vendor": "NVIDIA", "vram_gb": 32, "bw_gbs": 900},
+  {"name": "L4", "vendor": "NVIDIA", "vram_gb": 24, "bw_gbs": 300},
+  {"name": "L40S", "vendor": "NVIDIA", "vram_gb": 48, "bw_gbs": 864},
+  {"name": "A100 40GB", "vendor": "NVIDIA", "vram_gb": 40, "bw_gbs": 1555},
+  {"name": "A100 80GB", "vendor": "NVIDIA", "vram_gb": 80, "bw_gbs": 2039},
+  {"name": "H100 80GB", "vendor": "NVIDIA", "vram_gb": 80, "bw_gbs": 3350},
+  {"name": "H200", "vendor": "NVIDIA", "vram_gb": 141, "bw_gbs": 4800},
+  {"name": "Radeon RX 580 8GB", "vendor": "AMD", "vram_gb": 8, "bw_gbs": 256},
+  {"name": "Radeon RX 590", "vendor": "AMD", "vram_gb": 8, "bw_gbs": 256},
+  {"name": "Radeon RX 5500 XT 8GB", "vendor": "AMD", "vram_gb": 8, "bw_gbs": 224},
+  {"name": "Radeon RX 5600 XT", "vendor": "AMD", "vram_gb": 6, "bw_gbs": 288},
+  {"name": "Radeon RX 5700", "vendor": "AMD", "vram_gb": 8, "bw_gbs": 448},
+  {"name": "Radeon RX 5700 XT", "vendor": "AMD", "vram_gb": 8, "bw_gbs": 448},
+  {"name": "Radeon VII", "vendor": "AMD", "vram_gb": 16, "bw_gbs": 1024},
+  {"name": "Radeon RX 6500 XT", "vendor": "AMD", "vram_gb": 4, "bw_gbs": 144},
+  {"name": "Radeon RX 6600", "vendor": "AMD", "vram_gb": 8, "bw_gbs": 224},
+  {"name": "Radeon RX 6600 XT", "vendor": "AMD", "vram_gb": 8, "bw_gbs": 256},
+  {"name": "Radeon RX 6650 XT", "vendor": "AMD", "vram_gb": 8, "bw_gbs": 280},
+  {"name": "Radeon RX 6700 XT", "vendor": "AMD", "vram_gb": 12, "bw_gbs": 384},
+  {"name": "Radeon RX 6750 XT", "vendor": "AMD", "vram_gb": 12, "bw_gbs": 432},
+  {"name": "Radeon RX 6800", "vendor": "AMD", "vram_gb": 16, "bw_gbs": 512},
+  {"name": "Radeon RX 6800 XT", "vendor": "AMD", "vram_gb": 16, "bw_gbs": 512},
+  {"name": "Radeon RX 6900 XT", "vendor": "AMD", "vram_gb": 16, "bw_gbs": 512},
+  {"name": "Radeon RX 6950 XT", "vendor": "AMD", "vram_gb": 16, "bw_gbs": 576},
+  {"name": "Radeon RX 7600", "vendor": "AMD", "vram_gb": 8, "bw_gbs": 288},
+  {"name": "Radeon RX 7600 XT", "vendor": "AMD", "vram_gb": 16, "bw_gbs": 288},
+  {"name": "Radeon RX 7700 XT", "vendor": "AMD", "vram_gb": 12, "bw_gbs": 432},
+  {"name": "Radeon RX 7800 XT", "vendor": "AMD", "vram_gb": 16, "bw_gbs": 624},
+  {"name": "Radeon RX 7900 GRE", "vendor": "AMD", "vram_gb": 16, "bw_gbs": 576},
+  {"name": "Radeon RX 7900 XT", "vendor": "AMD", "vram_gb": 20, "bw_gbs": 800},
+  {"name": "Radeon RX 7900 XTX", "vendor": "AMD", "vram_gb": 24, "bw_gbs": 960},
+  {"name": "Radeon RX 9060 XT 8GB", "vendor": "AMD", "vram_gb": 8, "bw_gbs": 322},
+  {"name": "Radeon RX 9060 XT 16GB", "vendor": "AMD", "vram_gb": 16, "bw_gbs": 322},
+  {"name": "Radeon RX 9070", "vendor": "AMD", "vram_gb": 16, "bw_gbs": 624},
+  {"name": "Radeon RX 9070 XT", "vendor": "AMD", "vram_gb": 16, "bw_gbs": 640},
+  {"name": "Radeon PRO W7800", "vendor": "AMD", "vram_gb": 32, "bw_gbs": 576},
+  {"name": "Radeon PRO W7900", "vendor": "AMD", "vram_gb": 48, "bw_gbs": 864},
+  {"name": "Radeon PRO W9700", "vendor": "AMD", "vram_gb": 32, "bw_gbs": 640},
+  {"name": "Instinct MI210", "vendor": "AMD", "vram_gb": 64, "bw_gbs": 1638},
+  {"name": "Instinct MI250X", "vendor": "AMD", "vram_gb": 128, "bw_gbs": 3277},
+  {"name": "Instinct MI300X", "vendor": "AMD", "vram_gb": 192, "bw_gbs": 5300},
+  {"name": "Arc A380", "vendor": "Intel", "vram_gb": 6, "bw_gbs": 186},
+  {"name": "Arc A580", "vendor": "Intel", "vram_gb": 8, "bw_gbs": 512},
+  {"name": "Arc A750", "vendor": "Intel", "vram_gb": 8, "bw_gbs": 512},
+  {"name": "Arc A770 8GB", "vendor": "Intel", "vram_gb": 8, "bw_gbs": 512},
+  {"name": "Arc A770 16GB", "vendor": "Intel", "vram_gb": 16, "bw_gbs": 560},
+  {"name": "Arc B570", "vendor": "Intel", "vram_gb": 10, "bw_gbs": 380},
+  {"name": "Arc B580", "vendor": "Intel", "vram_gb": 12, "bw_gbs": 456},
+  {"name": "Arc Pro B50", "vendor": "Intel", "vram_gb": 16, "bw_gbs": 224},
+  {"name": "Arc Pro B60", "vendor": "Intel", "vram_gb": 24, "bw_gbs": 456}
+],
+"ram":{"sizes_gb": [2, 4, 6, 8, 12, 16, 20, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 1024], "channels": [1, 2, 3, 4, 6, 8, 12], "types": {"DDR3": {"speeds_mts": [1066, 1333, 1600, 1866, 2133]}, "DDR4": {"speeds_mts": [2133, 2400, 2666, 2933, 3200, 3600, 4000, 4400, 4800]}, "DDR5": {"speeds_mts": [4000, 4400, 4800, 5200, 5600, 6000, 6400, 6800, 7200, 7600, 8000, 8400]}, "LPDDR4X": {"speeds_mts": [3733, 4267]}, "LPDDR5": {"speeds_mts": [5500, 6400]}, "LPDDR5X": {"speeds_mts": [7467, 7500, 8000, 8448, 8533]}}},
+"storage":{
+ "capacities_gb": [
+  32,
+  64,
+  120,
+  128,
+  240,
+  250,
+  256,
+  480,
+  500,
+  512,
+  960,
+  1000,
+  1024,
+  1920,
+  2000,
+  2048,
+  4000,
+  4096,
+  8000,
+  16000
+ ],
+ "types": [
+  {
+   "id": "hdd-5400",
+   "name": "HDD 5400 tr/min",
+   "read_mbs": 100
+  },
+  {
+   "id": "hdd-7200",
+   "name": "HDD 7200 tr/min",
+   "read_mbs": 180
+  },
+  {
+   "id": "sata-ssd",
+   "name": "SSD SATA",
+   "read_mbs": 550
+  },
+  {
+   "id": "nvme-gen3",
+   "name": "SSD NVMe PCIe 3.0",
+   "read_mbs": 3300
+  },
+  {
+   "id": "nvme-gen4",
+   "name": "SSD NVMe PCIe 4.0",
+   "read_mbs": 6800
+  },
+  {
+   "id": "nvme-gen5",
+   "name": "SSD NVMe PCIe 5.0",
+   "read_mbs": 11500
+  },
+  {
+   "id": "emmc",
+   "name": "eMMC",
+   "read_mbs": 250
+  },
+  {
+   "id": "microsd",
+   "name": "Carte microSD (UHS-I)",
+   "read_mbs": 90
+  },
+  {
+   "id": "usb-ssd",
+   "name": "SSD externe USB 3.2",
+   "read_mbs": 1000
+  },
+  {
+   "id": "tb-ssd",
+   "name": "SSD externe Thunderbolt / USB4",
+   "read_mbs": 2800
+  }
+ ],
+ "drives": [
+  {
+   "name": "Samsung 870 EVO",
+   "type": "SATA",
+   "read_mbs": 560,
+   "capacities_gb": [
+    250,
+    500,
+    1000,
+    2000,
+    4000
+   ]
+  },
+  {
+   "name": "Samsung 870 QVO",
+   "type": "SATA",
+   "read_mbs": 560,
+   "capacities_gb": [
+    1000,
+    2000,
+    4000,
+    8000
+   ]
+  },
+  {
+   "name": "Crucial MX500",
+   "type": "SATA",
+   "read_mbs": 560,
+   "capacities_gb": [
+    250,
+    500,
+    1000,
+    2000,
+    4000
+   ]
+  },
+  {
+   "name": "WD Blue SA510",
+   "type": "SATA",
+   "read_mbs": 560,
+   "capacities_gb": [
+    250,
+    500,
+    1000,
+    2000,
+    4000
+   ]
+  },
+  {
+   "name": "SanDisk SSD Plus",
+   "type": "SATA",
+   "read_mbs": 535,
+   "capacities_gb": [
+    240,
+    480,
+    1000,
+    2000
+   ]
+  },
+  {
+   "name": "Kingston A400",
+   "type": "SATA",
+   "read_mbs": 500,
+   "capacities_gb": [
+    240,
+    480,
+    960,
+    1920
+   ]
+  },
+  {
+   "name": "WD Blue SN550",
+   "type": "NVMe 3.0",
+   "read_mbs": 2400,
+   "capacities_gb": [
+    250,
+    500,
+    1000
+   ]
+  },
+  {
+   "name": "WD Blue SN570",
+   "type": "NVMe 3.0",
+   "read_mbs": 3500,
+   "capacities_gb": [
+    250,
+    500,
+    1000,
+    2000
+   ]
+  },
+  {
+   "name": "Samsung 970 EVO Plus",
+   "type": "NVMe 3.0",
+   "read_mbs": 3500,
+   "capacities_gb": [
+    250,
+    500,
+    1000,
+    2000
+   ]
+  },
+  {
+   "name": "Crucial P3",
+   "type": "NVMe 3.0",
+   "read_mbs": 3500,
+   "capacities_gb": [
+    500,
+    1000,
+    2000,
+    4000
+   ]
+  },
+  {
+   "name": "Kingston NV2",
+   "type": "NVMe 3.0",
+   "read_mbs": 3500,
+   "capacities_gb": [
+    250,
+    500,
+    1000,
+    2000,
+    4000
+   ]
+  },
+  {
+   "name": "Samsung 980 Pro",
+   "type": "NVMe 4.0",
+   "read_mbs": 7000,
+   "capacities_gb": [
+    250,
+    500,
+    1000,
+    2000
+   ]
+  },
+  {
+   "name": "Samsung 990 EVO",
+   "type": "NVMe 4.0",
+   "read_mbs": 5000,
+   "capacities_gb": [
+    1000,
+    2000
+   ]
+  },
+  {
+   "name": "Samsung 990 Pro",
+   "type": "NVMe 4.0",
+   "read_mbs": 7450,
+   "capacities_gb": [
+    1000,
+    2000,
+    4000
+   ]
+  },
+  {
+   "name": "WD Black SN850X",
+   "type": "NVMe 4.0",
+   "read_mbs": 7300,
+   "capacities_gb": [
+    1000,
+    2000,
+    4000,
+    8000
+   ]
+  },
+  {
+   "name": "Crucial P5 Plus",
+   "type": "NVMe 4.0",
+   "read_mbs": 6600,
+   "capacities_gb": [
+    500,
+    1000,
+    2000
+   ]
+  },
+  {
+   "name": "Crucial T500",
+   "type": "NVMe 4.0",
+   "read_mbs": 7400,
+   "capacities_gb": [
+    500,
+    1000,
+    2000,
+    4000
+   ]
+  },
+  {
+   "name": "Kingston KC3000",
+   "type": "NVMe 4.0",
+   "read_mbs": 7000,
+   "capacities_gb": [
+    512,
+    1024,
+    2048,
+    4096
+   ]
+  },
+  {
+   "name": "Kingston Fury Renegade",
+   "type": "NVMe 4.0",
+   "read_mbs": 7300,
+   "capacities_gb": [
+    500,
+    1000,
+    2000,
+    4000
+   ]
+  },
+  {
+   "name": "Seagate FireCuda 530",
+   "type": "NVMe 4.0",
+   "read_mbs": 7300,
+   "capacities_gb": [
+    500,
+    1000,
+    2000,
+    4000
+   ]
+  },
+  {
+   "name": "SK hynix Platinum P41",
+   "type": "NVMe 4.0",
+   "read_mbs": 7000,
+   "capacities_gb": [
+    500,
+    1000,
+    2000
+   ]
+  },
+  {
+   "name": "Solidigm P44 Pro",
+   "type": "NVMe 4.0",
+   "read_mbs": 7000,
+   "capacities_gb": [
+    512,
+    1024,
+    2048
+   ]
+  },
+  {
+   "name": "Lexar NM790",
+   "type": "NVMe 4.0",
+   "read_mbs": 7400,
+   "capacities_gb": [
+    512,
+    1024,
+    2048,
+    4096
+   ]
+  },
+  {
+   "name": "Sabrent Rocket 4 Plus",
+   "type": "NVMe 4.0",
+   "read_mbs": 7100,
+   "capacities_gb": [
+    500,
+    1000,
+    2000,
+    4000,
+    8000
+   ]
+  },
+  {
+   "name": "Crucial T705",
+   "type": "NVMe 5.0",
+   "read_mbs": 13600,
+   "capacities_gb": [
+    1000,
+    2000,
+    4000
+   ]
+  },
+  {
+   "name": "Samsung 9100 Pro",
+   "type": "NVMe 5.0",
+   "read_mbs": 14800,
+   "capacities_gb": [
+    1000,
+    2000,
+    4000,
+    8000
+   ]
+  },
+  {
+   "name": "WD Black SN8100",
+   "type": "NVMe 5.0",
+   "read_mbs": 14900,
+   "capacities_gb": [
+    1000,
+    2000,
+    4000,
+    8000
+   ]
+  },
+  {
+   "name": "Corsair MP700 Pro",
+   "type": "NVMe 5.0",
+   "read_mbs": 12400,
+   "capacities_gb": [
+    1000,
+    2000,
+    4000
+   ]
+  },
+  {
+   "name": "Seagate FireCuda 540",
+   "type": "NVMe 5.0",
+   "read_mbs": 10000,
+   "capacities_gb": [
+    1000,
+    2000
+   ]
+  },
+  {
+   "name": "Kingston Fury Renegade G5",
+   "type": "NVMe 5.0",
+   "read_mbs": 14800,
+   "capacities_gb": [
+    1000,
+    2000,
+    4000
+   ]
+  },
+  {
+   "name": "Samsung T7 Shield",
+   "type": "Externe",
+   "read_mbs": 1050,
+   "capacities_gb": [
+    1000,
+    2000,
+    4000
+   ]
+  },
+  {
+   "name": "Samsung T9",
+   "type": "Externe",
+   "read_mbs": 2000,
+   "capacities_gb": [
+    1000,
+    2000,
+    4000
+   ]
+  },
+  {
+   "name": "SanDisk Extreme Portable",
+   "type": "Externe",
+   "read_mbs": 1050,
+   "capacities_gb": [
+    500,
+    1000,
+    2000,
+    4000
+   ]
+  },
+  {
+   "name": "Crucial X9",
+   "type": "Externe",
+   "read_mbs": 1050,
+   "capacities_gb": [
+    1000,
+    2000,
+    4000
+   ]
+  },
+  {
+   "name": "WD Blue HDD 7200",
+   "type": "HDD",
+   "read_mbs": 150,
+   "capacities_gb": [
+    1000,
+    2000,
+    4000
+   ]
+  },
+  {
+   "name": "Seagate Barracuda",
+   "type": "HDD",
+   "read_mbs": 220,
+   "capacities_gb": [
+    1000,
+    2000,
+    4000,
+    8000
+   ]
+  }
+ ]
+}
+}
