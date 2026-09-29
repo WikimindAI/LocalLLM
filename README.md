@@ -13,6 +13,7 @@ Tu donnes ta config (GPU, CPU, RAM, SSD), on te dit quelle classe de modèles to
 <img src="https://jsdelivr.net" height="32" alt="macOS" />
 <img src="https://jsdelivr.net" height="32" alt="Android" />
 
+<img scr="assets/android.png" width="40%" />
 
 
 </div>
