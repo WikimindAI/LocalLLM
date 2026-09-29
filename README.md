@@ -210,3 +210,10 @@ Règles : la classe est la plus petite dont `max_params_b ≥ params_b`, les tai
 ## Licence
 
 MIT. Les modèles restent soumis à leurs licences respectives : vérifie-les avant tout usage commercial.
+
+
+## Contributors
+
+<a href="https://github.com/localsend/localsend/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=localsend/localsend"  alt="Localsend Contributors"/>
+</a>
