@@ -214,6 +214,6 @@ MIT. Les modèles restent soumis à leurs licences respectives : vérifie-les av
 
 ## Contributors
 
-<a href="https://github.com/localsend/localsend/graphs/contributors">
+<a href="https://github.com/chpalitom09-bot/LocalLLM">
   <img src="https://contrib.rocks/image?repo=localsend/localsend"  alt="Localsend Contributors"/>
 </a>
