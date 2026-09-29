@@ -9,6 +9,10 @@ Tu donnes ta config (GPU, CPU, RAM, SSD), on te dit quelle classe de modèles to
 ![Format](https://img.shields.io/badge/format-GGUF-purple)
 ![Licence](https://img.shields.io/badge/licence-MIT-green)
 
+![Windows](https://shields.io)
+![macOS](https://shields.io)
+![Android](https://shields.io)
+
 
 
 <img scr="assets/android.png"/>
