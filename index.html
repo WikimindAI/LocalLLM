@@ -145,10 +145,7 @@ pre button{position:absolute;top:8px;right:8px;font:inherit;font-size:12px;paddi
 .mn.o #mt .ic i:nth-child(3){transform:rotate(-45deg) scaleX(1);transition-delay:0s}
 @media(hover:none){.ic::before{opacity:0;transform:scale(0)}.ic i{opacity:1}.ic i:nth-child(1){transform:translateY(-6px) scaleX(1)}.ic i:nth-child(2){transform:scaleX(1)}.ic i:nth-child(3){transform:translateY(6px) scaleX(1)}}
 .tabs{left:0;right:auto;top:calc(100% + 10px);transform-origin:top left}
-#ml{font-size:14px;font-weight:500}
-#ml::before{content:"/";margin-right:12px;color:var(--bd2)}
 #th{margin-left:auto}
-@media(max-width:560px){#ml{display:none}}
 </style>
 </head>
 <body>
@@ -163,7 +160,6 @@ pre button{position:absolute;top:8px;right:8px;font:inherit;font-size:12px;paddi
       <a href="#dl" data-p="dl"><b>Pack hors ligne</b><small>Installe et lance en local</small></a>
     </div>
   </div>
-  <span id="ml" class="mu">Présentation</span>
   <button id="th" aria-label="Changer de thème" title="Changer de thème">◐</button>
 </nav>
 
@@ -296,7 +292,7 @@ function count(e,to){const t0=performance.now();(function s(t){const p=Math.min(
 function route(){
   const p=['home','class','models','dl'].includes(location.hash.slice(1))?location.hash.slice(1):'home';
   ['home','class','models','dl'].forEach(k=>{$('p-'+k).hidden=k!==p});
-  document.querySelectorAll('.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.p===p));scrollTo(0,0);pg(p);lab(p);
+  document.querySelectorAll('.tabs a').forEach(a=>a.classList.toggle('on',a.dataset.p===p));scrollTo(0,0);pg(p);
   if(p==='class')requestAnimationFrame(update);
 }
 
@@ -470,7 +466,6 @@ mn.addEventListener('keydown',e=>{
   e.preventDefault();mo(true);const it=[...mn.querySelectorAll('.tabs a')],k=it.indexOf(document.activeElement)+(e.key==='ArrowDown'?1:-1);
   it[Math.max(0,Math.min(it.length-1,k))].focus();
 });
-function lab(p){const b=document.querySelector('.tabs a[data-p="'+p+'"] b');if(b)$('ml').textContent=b.textContent}
 </script>
 </body>
 </html>
