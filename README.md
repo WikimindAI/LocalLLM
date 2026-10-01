@@ -1,22 +1,25 @@
 <div align="center">
 
-<img src="assets/banner.svg" alt="L3M → LLLM → Local LLM" width="100%"/>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/logo-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/logo-light.svg">
+  <img alt="LocalLLM" src="assets/logo-light.svg" width="380">
+</picture>
+
+<br/>
 
 **Fais tourner des LLM en local, sans cloud, sans abonnement.**
+
 Tu donnes ta config (GPU, CPU, RAM, SSD), on te dit quelle classe de modèles ton PC encaisse, avec les liens et les tailles.
 
 ![Modèles](https://img.shields.io/badge/mod%C3%A8les-25-blue)
 ![Format](https://img.shields.io/badge/format-GGUF-purple)
 ![Licence](https://img.shields.io/badge/licence-MIT-green)
+![Windows](https://img.shields.io/badge/Windows-compatible-0078D6)
+![macOS](https://img.shields.io/badge/macOS-compatible-000000)
+![Android](https://img.shields.io/badge/Android-compatible-3DDC84)
 
-![Windows](https://shields.io)
-![macOS](https://shields.io)
-![Android](https://shields.io)
-
-
-
-<img scr="assets/android.png"/>
-
+[Démarrer](#démarrage-rapide) · [Classes](#les-classes-de-modèles) · [Modèles](#les-modèles-référencés) · [Contribuer](#contribuer)
 
 </div>
 
@@ -24,13 +27,25 @@ Tu donnes ta config (GPU, CPU, RAM, SSD), on te dit quelle classe de modèles to
 
 ## Sommaire
 
+- [Démarrage rapide](#démarrage-rapide)
 - [Comment ça marche](#comment-ça-marche)
 - [Les classes de modèles](#les-classes-de-modèles)
 - [Le calcul](#le-calcul)
 - [Les modèles référencés](#les-modèles-référencés)
-- [Démarrage rapide](#démarrage-rapide)
+- [Quelle quantification choisir ?](#quelle-quantification-choisir-)
+- [Lancer un modèle](#lancer-un-modèle)
 - [Structure du dépôt](#structure-du-dépôt)
 - [Contribuer](#contribuer)
+- [Licence](#licence)
+
+---
+
+## Démarrage rapide
+
+1. Ouvre `index.html` (ou la page GitHub Pages du projet).
+2. Saisis ta config : GPU, CPU, RAM, SSD.
+3. Récupère ta classe et la liste des modèles compatibles.
+4. Télécharge le `.gguf` et [lance-le](#lancer-un-modèle).
 
 ---
 
@@ -43,7 +58,7 @@ Tu donnes ta config (GPU, CPU, RAM, SSD), on te dit quelle classe de modèles to
    - **SSD** (espace libre)
 2. L'interface calcule ta **classe** (de `A1` à `A120`).
 3. Elle affiche tous les modèles de ta classe et des classes inférieures, avec leurs quantifications, leur taille et le lien de téléchargement.
-4. Tu télécharges le `.gguf` et tu le lances avec `llama.cpp`, Ollama ou LM Studio (voir [Démarrage rapide](#démarrage-rapide)).
+4. Tu télécharges le `.gguf` et tu le lances avec `llama.cpp`, Ollama ou LM Studio (voir [Lancer un modèle](#lancer-un-modèle)).
 
 ---
 
@@ -64,8 +79,9 @@ Le chiffre de la classe = nombre maximum de **milliards de paramètres**.
 | **A70**  | ≤ 70B  | 64 Go | 48 Go | 45 Go | Station de travail |
 | **A120** | ≤ 120B | 96 Go | 80 Go | 70 Go | Très gros modèles, machine dédiée |
 
-> Les valeurs du tableau sont calculées pour la quantification **Q4_K_M**, le meilleur rapport qualité/taille dans la plupart des cas.
-> La classe se base sur le **nombre réel de paramètres** : un « 8B » qui fait 8,2 milliards de paramètres tombe en `A14`. C'est voulu, pour que la classe reste une borne fiable.
+> [!NOTE]
+> - Les valeurs du tableau sont calculées pour la quantification **Q4_K_M**, le meilleur rapport qualité/taille dans la plupart des cas.
+> - La classe se base sur le **nombre réel de paramètres** : un « 8B » qui fait 8,2 milliards de paramètres tombe en `A14`. C'est voulu, pour que la classe reste une borne fiable.
 
 ---
 
@@ -83,9 +99,12 @@ mémoire_disponible = RAM − 2 Go                        (si GPU = none, on ré
                ET  taille_du_fichier ≤ SSD libre
 ```
 
+**Exemple :** 16 Go de RAM, pas de GPU → mémoire disponible = 14 Go.
+Qwen3 14B (9,00 Go) a besoin de 10,5 Go : ça passe. Mistral Small 3.2 24B (14,3 Go) a besoin de 15,8 Go : ça ne passe pas.
+
 Un modèle plus gros que ta VRAM mais qui tient dans ta RAM peut tourner en **offload partiel** (une partie des couches sur le GPU, le reste sur le CPU), plus lent mais utilisable.
 
-**Pour les modèles MoE** (marqués `moe`), comme `Qwen3-30B-A3B` ou `gpt-oss-20b` : seuls quelques paramètres sont actifs par token, donc ils sont rapides, mais le modèle **entier** doit tenir en mémoire. C'est la taille du fichier qui compte pour le calcul.
+**Modèles MoE** (marqués `moe`), comme `Qwen3-30B-A3B` ou `gpt-oss-20b` : seuls quelques paramètres sont actifs par token, donc ils sont rapides, mais le modèle **entier** doit tenir en mémoire. C'est la taille du fichier qui compte pour le calcul.
 
 Toutes ces données sont dans [`models.json`](models.json).
 
@@ -93,12 +112,12 @@ Toutes ces données sont dans [`models.json`](models.json).
 
 ## Les modèles référencés
 
-Tailles approximatives en **Q4_K_M** (voir `models.json` pour toutes les quantifications). Les liens pointent vers les dépôts Hugging Face contenant les fichiers GGUF.
+Tailles approximatives en **Q4_K_M** (voir [`models.json`](models.json) pour toutes les quantifications). Les liens pointent vers les dépôts Hugging Face contenant les fichiers GGUF.
 
 ### A1 à A4 : PC modestes
 
-| Modèle | Fournisseur | Classe | Taille Q4_K_M | Lien |
-|--------|-------------|:------:|:-------------:|------|
+| Modèle | Fournisseur | Classe | Taille | Lien |
+|--------|-------------|:------:|:------:|------|
 | Qwen3 0.6B | Alibaba (Qwen) | A1 | 0,40 Go | [Télécharger](https://huggingface.co/unsloth/Qwen3-0.6B-GGUF) |
 | Gemma 3 1B | Google | A1 | 0,81 Go | [Télécharger](https://huggingface.co/unsloth/gemma-3-1b-it-GGUF) |
 | Llama 3.2 1B | Meta | A2 | 0,81 Go | [Télécharger](https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF) |
@@ -111,8 +130,8 @@ Tailles approximatives en **Q4_K_M** (voir `models.json` pour toutes les quantif
 
 ### A8 à A14 : PC récents
 
-| Modèle | Fournisseur | Classe | Taille Q4_K_M | Lien |
-|--------|-------------|:------:|:-------------:|------|
+| Modèle | Fournisseur | Classe | Taille | Lien |
+|--------|-------------|:------:|:------:|------|
 | Gemma 3 4B (vision) | Google | A8 | 2,49 Go | [Télécharger](https://huggingface.co/unsloth/gemma-3-4b-it-GGUF) |
 | Mistral 7B v0.3 | Mistral AI | A8 | 4,37 Go | [Télécharger](https://huggingface.co/bartowski/Mistral-7B-Instruct-v0.3-GGUF) |
 | Qwen2.5 Coder 7B (code) | Alibaba (Qwen) | A8 | 4,68 Go | [Télécharger](https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct-GGUF) |
@@ -140,7 +159,9 @@ Tailles approximatives en **Q4_K_M** (voir `models.json` pour toutes les quantif
 | Llama 3.3 70B | Meta | A120 | 42,5 Go | [Télécharger](https://huggingface.co/bartowski/Llama-3.3-70B-Instruct-GGUF) |
 | gpt-oss 120B (MoE) | OpenAI | A120 | 63,4 Go (MXFP4) | [Télécharger](https://huggingface.co/ggml-org/gpt-oss-120b-GGUF) |
 
-### Quelle quantification choisir ?
+---
+
+## Quelle quantification choisir ?
 
 | Quant | Qualité | Taille | Quand la choisir |
 |-------|:-------:|:------:|------------------|
@@ -150,7 +171,9 @@ Tailles approximatives en **Q4_K_M** (voir `models.json` pour toutes les quantif
 
 ---
 
-## Démarrage rapide
+## Lancer un modèle
+
+Une fois le `.gguf` téléchargé, trois options.
 
 ### Option 1 : llama.cpp
 
@@ -174,20 +197,20 @@ ollama run qwen3:4b
 
 Interface graphique : cherche le modèle dans l'onglet de recherche, choisis la quantification, télécharge, discute.
 
-### Utiliser l'interface Local LLM
-
-Ouvre `index.html` (ou la page GitHub Pages du projet), saisis ta config, et récupère ta classe et la liste des modèles compatibles.
-
 ---
 
 ## Structure du dépôt
 
 ```text
-local-llm/
-├── README.md
+LocalLLM/
+├── index.html           # Interface : saisie de la config, calcul de la classe
 ├── models.json          # Base des modèles (classes, quantifications, tailles, liens)
+├── hardware.json        # Base matériel
+├── README.md
+├── LICENSE
 └── assets/
-    └── banner.svg       # Bandeau animé L3M → LLLM → Local LLM
+    ├── logo-light.svg   # Logo pour thème clair
+    └── logo-dark.svg    # Logo pour thème sombre
 ```
 
 ---
@@ -212,7 +235,11 @@ Pour ajouter un modèle, ajoute une entrée dans `models.json` :
 }
 ```
 
-Règles : la classe est la plus petite dont `max_params_b ≥ params_b`, les tailles viennent de la page Hugging Face, et chaque lien doit être testé.
+Règles :
+
+- la classe est la plus petite dont `max_params_b ≥ params_b` ;
+- les tailles viennent de la page Hugging Face ;
+- chaque lien doit être testé.
 
 ---
 
@@ -220,9 +247,8 @@ Règles : la classe est la plus petite dont `max_params_b ≥ params_b`, les tai
 
 MIT. Les modèles restent soumis à leurs licences respectives : vérifie-les avant tout usage commercial.
 
+## Contributeurs
 
-## Contributors
-
-<a href="https://github.com/chpalitom09-bot/LocalLLM">
-  <img src="https://contrib.rocks/image?repo=localsend/localsend"  alt="Localsend Contributors"/>
+<a href="https://github.com/chpalitom09-bot/LocalLLM/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=chpalitom09-bot/LocalLLM" alt="Contributeurs de LocalLLM"/>
 </a>
