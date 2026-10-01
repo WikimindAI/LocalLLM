@@ -9,6 +9,7 @@
 <link rel="icon" href="PWA/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="PWA/icon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="PWA/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="LocalLLM">
 <script>try{document.documentElement.dataset.theme=localStorage.llmth||'dark'}catch(e){}</script>
@@ -152,6 +153,16 @@ pre button{position:absolute;top:8px;right:8px;font:inherit;font-size:12px;paddi
 @media(hover:none){.ic::before{opacity:0;transform:scale(0)}.ic i{opacity:1}.ic i:nth-child(1){transform:translateY(-6px) scaleX(1)}.ic i:nth-child(2){transform:scaleX(1)}.ic i:nth-child(3){transform:translateY(6px) scaleX(1)}}
 .tabs{left:0;right:auto;top:calc(100% + 10px);transform-origin:top left}
 #th{margin-left:auto}
+#pwa{position:fixed;left:50%;bottom:max(16px,env(safe-area-inset-bottom));z-index:20;width:min(440px,calc(100% - 24px));display:flex;align-items:center;gap:14px;padding:12px 12px 12px 14px;background:var(--s1);border:1px solid var(--bd2);border-radius:18px;box-shadow:0 24px 60px -20px rgba(0,0,0,.6);transform:translate(-50%,0);animation:pwa .7s var(--ease) backwards}
+@keyframes pwa{from{opacity:0;transform:translate(-50%,24px)}}
+#pwa img{flex:none;width:40px;height:40px;border-radius:10px}
+#pwa .tx{flex:1;min-width:0;line-height:1.35}
+#pwa b{display:block;font-size:14.5px;letter-spacing:-.01em}
+#pwa small{display:block;font-size:12.5px}
+#pwa .btn{padding:9px 16px;font-size:13.5px}
+#pwa .cl{flex:none;width:30px;height:30px;border:0;border-radius:9px;background:none;color:var(--mu);font-size:20px;line-height:1;cursor:pointer}
+#pwa .cl:hover{background:var(--w2);color:var(--tx)}
+@media(prefers-reduced-motion:reduce){#pwa{animation:none}}
 </style>
 </head>
 <body>
@@ -473,8 +484,37 @@ mn.addEventListener('keydown',e=>{
   it[Math.max(0,Math.min(it.length-1,k))].focus();
 });
 </script>
+<div id="pwa" hidden role="dialog" aria-label="Installer l'application">
+  <img src="PWA/icon-192.png" alt="" width="40" height="40">
+  <div class="tx"><b>Installer LocalLLM</b><small id="pwat">Accès rapide, fonctionne hors ligne.</small></div>
+  <button type="button" class="btn" id="pwai">Installer</button>
+  <button type="button" class="cl" id="pwax" aria-label="Fermer">×</button>
+</div>
 <script>
 if('serviceWorker' in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+(()=>{
+  const box=document.getElementById('pwa'),ok=document.getElementById('pwai'),no=document.getElementById('pwax'),tx=document.getElementById('pwat');
+  const KEY='llmpwa',WAIT=14*864e5;
+  const installed=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+  const snoozed=()=>{try{return Date.now()-(+localStorage.getItem(KEY)||0)<WAIT}catch(e){return false}};
+  const snooze=()=>{try{localStorage.setItem(KEY,Date.now())}catch(e){}};
+  const show=()=>{if(!installed()&&!snoozed())setTimeout(()=>{if(!installed())box.hidden=false},2500)};
+  let ev=null;
+  addEventListener('beforeinstallprompt',e=>{e.preventDefault();ev=e;ok.hidden=false;show()});
+  ok.addEventListener('click',async()=>{
+    if(!ev)return;
+    ev.prompt();
+    try{await ev.userChoice}catch(e){}
+    ev=null;box.hidden=true;snooze();
+  });
+  no.addEventListener('click',()=>{box.hidden=true;snooze()});
+  addEventListener('appinstalled',()=>{box.hidden=true;ev=null});
+  // iOS : pas d'événement d'installation, on explique le geste
+  if(/iphone|ipad|ipod/i.test(navigator.userAgent)&&!installed()){
+    tx.textContent='Touche Partager, puis « Sur l\u2019écran d\u2019accueil ».';
+    ok.hidden=true;show();
+  }
+})();
 </script>
 </body>
 </html>
