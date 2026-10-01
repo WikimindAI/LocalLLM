@@ -7,16 +7,14 @@
 <meta name="theme-color" content="#0b0b0c">
 <script>try{document.documentElement.dataset.theme=localStorage.llmth||'dark'}catch(e){}</script>
 <style>
-@property --px{syntax:'<length>';inherits:true;initial-value:400px}
-@property --py{syntax:'<length>';inherits:true;initial-value:200px}
-:root{color-scheme:dark;--bg:#0b0b0c;--s1:#121214;--s2:#19191c;--tx:#f4f4f2;--mu:#8d8d93;--bd:rgba(255,255,255,.08);--bd2:rgba(255,255,255,.2);--w1:rgba(255,255,255,.04);--w2:rgba(255,255,255,.08);--sp:rgba(255,255,255,.07);--inv:#f4f4f2;--invt:#0b0b0c;--ok:#4ade80;--wa:#fbbf24;--ba:#f87171;--ease:cubic-bezier(.2,.8,.2,1);transition:--px .6s var(--ease),--py .6s var(--ease)}
-:root[data-theme=light]{color-scheme:light;--bg:#f6f6f4;--s1:#fff;--s2:#efefec;--tx:#111113;--mu:#6b6b72;--bd:rgba(0,0,0,.09);--bd2:rgba(0,0,0,.24);--w1:rgba(0,0,0,.035);--w2:rgba(0,0,0,.06);--sp:rgba(0,0,0,.06);--inv:#111113;--invt:#f6f6f4;--ok:#15803d;--wa:#b45309;--ba:#dc2626}
+:root{color-scheme:dark;--bg:#0b0b0c;--s1:#121214;--s2:#19191c;--tx:#f4f4f2;--mu:#8d8d93;--bd:rgba(255,255,255,.08);--bd2:rgba(255,255,255,.2);--w1:rgba(255,255,255,.04);--w2:rgba(255,255,255,.08);--sp:rgba(255,255,255,.07);--inv:#f4f4f2;--invt:#0b0b0c;--ok:#4ade80;--wa:#fbbf24;--ba:#f87171;--ease:cubic-bezier(.2,.8,.2,1);--gr:rgba(255,255,255,.09)}
+:root[data-theme=light]{color-scheme:light;--bg:#f6f6f4;--s1:#fff;--s2:#efefec;--tx:#111113;--mu:#6b6b72;--bd:rgba(0,0,0,.09);--bd2:rgba(0,0,0,.24);--w1:rgba(0,0,0,.035);--w2:rgba(0,0,0,.06);--sp:rgba(0,0,0,.06);--inv:#111113;--invt:#f6f6f4;--gr:rgba(0,0,0,.1);--ok:#15803d;--wa:#b45309;--ba:#dc2626}
 *{box-sizing:border-box}[hidden]{display:none!important}
 body{margin:0;font:15px/1.6 "Inter Variable",Inter,"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden;transition:background .5s,color .5s}
 .bg{position:fixed;inset:0;z-index:-1;overflow:hidden}
 .bg i{position:absolute;inset:0}
-.bg i:first-child{background-image:linear-gradient(var(--w1) 1px,transparent 1px),linear-gradient(90deg,var(--w1) 1px,transparent 1px);background-size:72px 72px;-webkit-mask-image:radial-gradient(ellipse 70% 55% at 50% 0,#000,transparent);mask-image:radial-gradient(ellipse 70% 55% at 50% 0,#000,transparent)}
-.bg i:last-child{background:radial-gradient(560px circle at var(--px) var(--py),var(--sp),transparent 70%)}
+.bg i:first-child{background-image:linear-gradient(var(--gr) 1px,transparent 1px),linear-gradient(90deg,var(--gr) 1px,transparent 1px);background-size:56px 56px;background-position:center top;-webkit-mask-image:radial-gradient(ellipse 100% 90% at 50% 12%,#000 35%,transparent 100%);mask-image:radial-gradient(ellipse 100% 90% at 50% 12%,#000 35%,transparent 100%)}
+.bg i:last-child{display:none}
 nav{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:14px;padding:14px 32px;-webkit-backdrop-filter:saturate(1.4) blur(20px);backdrop-filter:saturate(1.4) blur(20px);background:color-mix(in srgb,var(--bg) 72%,transparent);border-bottom:1px solid var(--bd)}
 .logo{display:flex;align-items:center;gap:10px;font-weight:650;font-size:17px;letter-spacing:-.03em}
 .logo::before{content:"";width:9px;height:9px;border-radius:3px;background:var(--tx);transform:rotate(45deg);transition:transform .7s var(--ease)}
@@ -39,8 +37,6 @@ h3{margin:0;font-size:15.5px;font-weight:600;letter-spacing:-.01em}
 .mu,small{color:var(--mu)}
 code{font:13px ui-monospace,Consolas,monospace;background:var(--w2);padding:2px 6px;border-radius:6px}
 .card,.mc,.sg div{position:relative;background:var(--s1);border:1px solid var(--bd);transition:border-color .35s,background .35s,transform .5s var(--ease)}
-.card::after,.mc::after,.sg div::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(360px circle at var(--mx,50%) var(--my,0),var(--sp),transparent 65%)}
-.card:hover::after,.mc:hover::after,.sg div:hover::after{opacity:1}
 .card{border-radius:20px;padding:26px}
 .btn{display:inline-block;border:0;cursor:pointer;font:inherit;font-weight:600;font-size:14.5px;padding:12px 22px;border-radius:12px;color:var(--invt);text-decoration:none;background:var(--inv);transition:transform .45s var(--ease),box-shadow .45s,background .3s}
 .btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px -14px var(--tx)}
@@ -109,6 +105,24 @@ pre button{position:absolute;top:8px;right:8px;font:inherit;font-size:12px;paddi
 #err{margin:30px;color:var(--ba)}
 @media(max-width:860px){.lay{grid-template-columns:1fr}.wrap{padding:28px 18px 70px}nav{padding:10px 14px;gap:10px}.tb{grid-template-columns:1fr}.stats>div{padding:18px 16px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.hero .in>*{opacity:1!important}}
+
+.det{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--bd)}
+.dd{position:relative}
+.dd-b{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;margin-top:6px;padding:11px 13px;font:inherit;font-weight:450;text-align:left;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:11px;cursor:pointer;transition:border-color .25s,box-shadow .25s}
+.tb .dd-b{margin-top:0}
+.dd-b:hover{border-color:var(--bd2)}
+.dd.o>.dd-b{border-color:var(--tx);box-shadow:0 0 0 4px var(--w2)}
+.dd-b::after{content:"";flex:none;width:7px;height:7px;border:solid var(--mu);border-width:0 1.5px 1.5px 0;transform:rotate(45deg) translateY(-2px);transition:transform .45s var(--ease)}
+.dd.o>.dd-b::after{transform:rotate(225deg) translateY(-2px)}
+.dd-t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dd-l{position:absolute;z-index:30;left:0;right:0;top:calc(100% + 6px);max-height:288px;overflow:auto;padding:5px;border-radius:14px;background:var(--s1);border:1px solid var(--bd2);box-shadow:0 24px 60px -16px rgba(0,0,0,.6);opacity:0;visibility:hidden;transform:translateY(-8px) scale(.98);transform-origin:top;transition:opacity .2s,transform .35s var(--ease),visibility 0s .35s}
+.dd.up>.dd-l{top:auto;bottom:calc(100% + 6px);transform:translateY(8px) scale(.98);transform-origin:bottom}
+.dd.o>.dd-l{opacity:1;visibility:visible;transform:none;transition:opacity .2s,transform .35s var(--ease)}
+.dd-i{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;padding:9px 11px;border:0;border-radius:9px;background:none;color:var(--tx);font:inherit;font-size:14px;text-align:left;cursor:pointer;transition:background .15s}
+.dd-i:hover,.dd-i:focus-visible{background:var(--w2);outline:0;box-shadow:none}
+.dd-i[aria-selected=true]::after{content:"\2713";color:var(--mu)}
+.dd-g{padding:9px 11px 4px;font-size:12px;font-weight:600;color:var(--mu)}
+.dd-e{margin:0;padding:10px 11px;color:var(--mu);font-size:13px}
 </style>
 </head>
 <body>
@@ -141,6 +155,7 @@ pre button{position:absolute;top:8px;right:8px;font:inherit;font-size:12px;paddi
   <p class="lead">Renseigne ta machine, la classe se calcule en direct.</p>
   <div class="lay">
     <form class="card" autocomplete="off" onsubmit="return false">
+      <div class="det"><button type="button" class="btn s" id="det">Détecter ma machine</button><small id="dets">Lit ta carte graphique depuis le navigateur.</small></div>
       <label>Processeur<input id="cpu" list="cpus" placeholder="ex. Core i7-13700K"></label>
       <label>Carte graphique<input id="gpu" list="gpus" value="none" placeholder="none si aucune"></label>
       <label id="nrow" hidden>Nombre de GPU<select id="n"><option>1</option><option>2</option><option>3</option><option>4</option><option>8</option></select></label>
@@ -291,7 +306,7 @@ function update(){
     ['Bande passante RAM',bw?Math.round(bw)+' Go/s':'n/d',ram+' Go'+(uni?' (unifiée)':'')],
     ['Modèles compatibles',nok+' / '+R.length,'dans le catalogue']].map(([a,b,s])=>`<div><small>${a}</small><b>${b}</b><small>${s}</small></div>`).join('');
   $('cfg').textContent=(cpu?cpu.name:'ta machine')+' · '+ram+' Go'+(dg?' · '+gpu.name+(n>1?' ×'+n:''):'');
-  renderGrid();
+  renderGrid();dds();
 }
 
 function fit(m,q,c){
@@ -345,14 +360,74 @@ function cfgNow(){ // reconstruit le contexte de calcul
 }
 
 const root=document.documentElement;
-addEventListener('pointermove',e=>{root.style.setProperty('--px',e.clientX+'px');root.style.setProperty('--py',e.clientY+'px');
-  const c=e.target.closest&&e.target.closest('.card,.mc,.sg div');
-  if(c){const r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')}},{passive:true});
 function ind(){const a=document.querySelector('.tabs a.on'),i=$('ind');if(!a)return;i.style.width=a.offsetWidth+'px';i.style.transform='translateX('+a.offsetLeft+'px)'}
 addEventListener('resize',ind);
 function pg(p){const s=$('p-'+p);s.classList.remove('pg');void s.offsetWidth;s.classList.add('pg')}
 let lc;new MutationObserver(()=>{const e=$('cls');if(e.textContent===lc)return;lc=e.textContent;e.classList.remove('pop');void e.offsetWidth;e.classList.add('pop')}).observe($('cls'),{childList:true});
 $('th').onclick=()=>{const t=root.dataset.theme==='light'?'dark':'light';root.dataset.theme=t;try{localStorage.llmth=t}catch(e){}};
+
+const mk=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+const fire=e=>e.dispatchEvent(new Event('input',{bubbles:true}));
+function dds(){document.querySelectorAll('.dd').forEach(w=>w._m&&w._m())}
+function nav(w,e){
+  if(e.key==='Escape'){w.classList.remove('o');return}
+  if(e.key!=='ArrowDown'&&e.key!=='ArrowUp')return;
+  e.preventDefault();const it=[...w.querySelectorAll('.dd-i')];if(!it.length)return;
+  const k=it.indexOf(document.activeElement)+(e.key==='ArrowDown'?1:-1);it[Math.max(0,Math.min(it.length-1,k))].focus();
+}
+function dd(sel){
+  const w=mk('div','dd'),b=mk('button','dd-b'),t=mk('span','dd-t'),l=mk('div','dd-l');
+  b.type='button';b.setAttribute('aria-haspopup','listbox');b.setAttribute('aria-expanded','false');b.append(t);l.setAttribute('role','listbox');
+  sel.before(w);w.append(b,l);sel.hidden=true;
+  const mark=()=>{const o=sel.selectedOptions[0];t.textContent=o?o.text:'';l.querySelectorAll('.dd-i').forEach(i=>i.setAttribute('aria-selected',!!o&&i.dataset.v===sel.value))};
+  const fill=()=>{l.replaceChildren();
+    const add=o=>{const i=mk('button','dd-i',o.text);i.type='button';i.dataset.v=o.value;i.setAttribute('role','option');l.append(i)};
+    [...sel.children].forEach(c=>{if(c.tagName==='OPTGROUP'){l.append(mk('div','dd-g',c.label));[...c.children].forEach(add)}else add(c)});mark()};
+  const open=v=>{w.classList.toggle('o',v);b.setAttribute('aria-expanded',v);
+    if(v){const r=b.getBoundingClientRect();w.classList.toggle('up',innerHeight-r.bottom<300&&r.top>300);
+      const s=l.querySelector('[aria-selected=true]');if(s)l.scrollTop=s.offsetTop-l.clientHeight/2+s.offsetHeight/2}};
+  w._m=mark;new MutationObserver(fill).observe(sel,{childList:true});fill();
+  b.onclick=()=>open(!w.classList.contains('o'));
+  l.onclick=e=>{const i=e.target.closest('.dd-i');if(!i)return;sel.value=i.dataset.v;mark();open(false);b.focus();fire(sel)};
+  w.onkeydown=e=>{if((e.key==='ArrowDown'||e.key==='ArrowUp')&&!w.classList.contains('o'))open(true);nav(w,e);if(e.key==='Escape')b.focus()};
+}
+function cb(inp){
+  const dl=$(inp.getAttribute('list')),w=mk('div','dd cb'),l=mk('div','dd-l');
+  inp.removeAttribute('list');l.setAttribute('role','listbox');inp.before(w);w.append(inp,l);
+  const show=q=>{const v=[...dl.options].map(o=>o.value).filter(n=>!q||n.toLowerCase().includes(q.toLowerCase())).slice(0,300);
+    l.replaceChildren(...(v.length?v.map(n=>{const i=mk('button','dd-i',n);i.type='button';i.dataset.v=n;return i}):[mk('p','dd-e','Aucun résultat')]));
+    const r=inp.getBoundingClientRect();w.classList.toggle('up',innerHeight-r.bottom<300&&r.top>300);w.classList.add('o')};
+  inp.addEventListener('focus',()=>show(''));
+  inp.addEventListener('click',()=>{if(!w.classList.contains('o'))show('')});
+  inp.addEventListener('input',e=>{if(e.isTrusted)show(inp.value)});
+  l.onclick=e=>{const i=e.target.closest('.dd-i');if(!i)return;inp.value=i.dataset.v;w.classList.remove('o');fire(inp)};
+  w.onkeydown=e=>{if(e.key==='ArrowDown'&&!w.classList.contains('o'))show(inp.value);nav(w,e)};
+}
+document.addEventListener('pointerdown',e=>document.querySelectorAll('.dd.o').forEach(w=>{if(!w.contains(e.target)){w.classList.remove('o');const b=w.querySelector('.dd-b');b&&b.setAttribute('aria-expanded','false')}}));
+document.querySelectorAll('select').forEach(dd);['cpu','gpu'].forEach(k=>cb($(k)));
+
+const GEN=['nvidia','geforce','amd','radeon','intel','graphics','gpu','series'];
+const tk=s=>(s.toLowerCase().match(/[a-z]+|\d+/g)||[]).filter(t=>!GEN.includes(t));
+function best(list,rs){
+  const R=new Set(tk(rs));let b=null,bs=0;
+  for(const x of list){const t=tk(x.name);if(!t.length)continue;
+    const r=t.filter(w=>R.has(w)).length/t.length;
+    if(r<.6||t.some(w=>/^\d+$/.test(w)&&!R.has(w)))continue;
+    const s=r*100+t.length;if(s>bs){bs=s;b=x}}
+  return b;
+}
+async function det(){
+  const s=$('dets');s.textContent='Détection en cours…';let r='';
+  try{const a=await navigator.gpu?.requestAdapter({powerPreference:'high-performance'});
+    if(a){const i=a.info||{};r+=[i.vendor,i.architecture,i.device,i.description].filter(Boolean).join(' ')}}catch(e){}
+  try{const g=document.createElement('canvas').getContext('webgl',{powerPreference:'high-performance'}),x=g&&g.getExtension('WEBGL_debug_renderer_info');
+    if(x)r+=' '+g.getParameter(x.UNMASKED_RENDERER_WEBGL)}catch(e){}
+  const u=best(H.cpus.filter(c=>c.unified),r),g=u?null:best(H.gpus,r),th=navigator.hardwareConcurrency;
+  if(u||g){if(u)$('cpu').value=u.name;$('gpu').value=g?g.name:'none';fire($('cpu'));fire($('gpu'))}
+  s.textContent=(u?'Puce détectée : '+u.name:g?'GPU détecté : '+g.name:r.trim()?'GPU non reconnu ('+r.trim().slice(0,70)+'), choisis-le dans la liste.':'GPU masqué par le navigateur.')
+    +(th?' · '+th+' threads CPU':'')+' · Processeur, RAM et disque : à renseigner à la main.';
+}
+$('det').onclick=det;
 </script>
 </body>
 </html>
