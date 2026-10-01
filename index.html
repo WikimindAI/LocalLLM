@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>LocalLLM – Fais tourner l'IA sur ta machine</title>
 <meta name="theme-color" content="#0b0b0c">
+<link rel="manifest" href="PWA/manifest.webmanifest">
+<link rel="icon" href="PWA/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="PWA/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="PWA/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="LocalLLM">
 <script>try{document.documentElement.dataset.theme=localStorage.llmth||'dark'}catch(e){}</script>
 <style>
 :root{color-scheme:dark;--bg:#0b0b0c;--s1:#121214;--s2:#19191c;--tx:#f4f4f2;--mu:#8d8d93;--bd:rgba(255,255,255,.08);--bd2:rgba(255,255,255,.2);--w1:rgba(255,255,255,.04);--w2:rgba(255,255,255,.08);--sp:rgba(255,255,255,.07);--inv:#f4f4f2;--invt:#0b0b0c;--ok:#4ade80;--wa:#fbbf24;--ba:#f87171;--ease:cubic-bezier(.2,.8,.2,1);--gr:rgba(255,255,255,.09)}
@@ -466,6 +472,9 @@ mn.addEventListener('keydown',e=>{
   e.preventDefault();mo(true);const it=[...mn.querySelectorAll('.tabs a')],k=it.indexOf(document.activeElement)+(e.key==='ArrowDown'?1:-1);
   it[Math.max(0,Math.min(it.length-1,k))].focus();
 });
+</script>
+<script>
+if('serviceWorker' in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 </script>
 </body>
 </html>
