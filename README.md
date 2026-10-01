@@ -43,9 +43,10 @@ Tu donnes ta config (GPU, CPU, RAM, SSD), on te dit quelle classe de modèles to
 ## Démarrage rapide
 
 1. Ouvre `index.html` (ou la page GitHub Pages du projet).
-2. Saisis ta config : GPU, CPU, RAM, SSD.
-3. Récupère ta classe et la liste des modèles compatibles.
-4. Télécharge le `.gguf` et [lance-le](#lancer-un-modèle).
+   : [LocalLLM](https://chpalitom09-bot.github.io/LocalLLM/)
+3. Saisis ta config : GPU, CPU, RAM, SSD.
+4. Récupère ta classe et la liste des modèles compatibles.
+5. Télécharge le `.gguf` et [lance-le](#lancer-un-modèle).
 
 ---
 
