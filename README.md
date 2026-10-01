@@ -15,9 +15,9 @@ Tu donnes ta config (GPU, CPU, RAM, SSD), on te dit quelle classe de modèles to
 ![Modèles](https://img.shields.io/badge/mod%C3%A8les-25-blue)
 ![Format](https://img.shields.io/badge/format-GGUF-purple)
 ![Licence](https://img.shields.io/badge/licence-MIT-green)
-![Windows](https://img.shields.io/badge/Windows-compatible-0078D6)
-![macOS](https://img.shields.io/badge/macOS-compatible-000000)
-![Android](https://img.shields.io/badge/Android-compatible-3DDC84)
+![Windows](https://img.shields.io/badge/Windows-compatible-0078D6?logo=data:image/svg%2Bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxwYXRoIGQ9Ik0yIDMuNmw4LjQtMS4xNXY4LjFIMnpNMTEuNSAyLjNMMjIgLjh2OS43NUgxMS41ek0yIDExLjU1aDguNHY4LjFMMiAxOC41ek0xMS41IDExLjU1SDIyVjIxLjNsLTEwLjUtMS40NXoiLz48L3N2Zz4%3D)
+![macOS](https://img.shields.io/badge/macOS-compatible-000000?logo=apple&logoColor=white)
+![Android](https://img.shields.io/badge/Android-compatible-3DDC84?logo=android&logoColor=white)
 
 [Démarrer](#démarrage-rapide) · [Classes](#les-classes-de-modèles) · [Modèles](#les-modèles-référencés) · [Contribuer](#contribuer)
 
