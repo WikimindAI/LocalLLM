@@ -176,8 +176,20 @@ pre button{position:absolute;top:8px;right:8px;font:inherit;font-size:12px;paddi
 @media(max-width:560px){.tabs{grid-template-columns:1fr}}
 
 .mn{position:relative}
-#mt{display:flex;align-items:center;padding:7px 12px;margin-left:-12px;font:inherit;font-weight:650;font-size:17px;letter-spacing:-.03em;color:var(--tx);background:none;border:1px solid transparent;border-radius:12px;cursor:pointer;transition:background .3s,border-color .3s}
+#mt{display:flex;align-items:center;gap:11px;padding:7px 12px 7px 8px;margin-left:-8px;font:inherit;font-weight:650;font-size:17px;letter-spacing:-.03em;color:var(--tx);background:none;border:1px solid transparent;border-radius:12px;cursor:pointer;transition:background .3s,border-color .3s}
 #mt:hover,.mn.o #mt{background:var(--w1);border-color:var(--bd)}
+.ic{position:relative;flex:none;width:22px;height:22px}
+.ic::before{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:3px;background:var(--tx);transform:rotate(45deg);transition:transform .6s var(--ease),opacity .3s}
+.ic i{position:absolute;left:3px;right:3px;top:50%;height:2px;margin-top:-1px;border-radius:2px;background:var(--tx);opacity:0;transform:scaleX(0);transition:transform .55s var(--ease),opacity .3s}
+#mt:hover .ic::before,.mn.o #mt .ic::before{transform:rotate(225deg) scale(0);opacity:0}
+#mt:hover .ic i,.mn.o #mt .ic i{opacity:1}
+#mt:hover .ic i:nth-child(1){transform:translateY(-6px) scaleX(1)}
+#mt:hover .ic i:nth-child(2){transform:scaleX(1);transition-delay:.06s}
+#mt:hover .ic i:nth-child(3){transform:translateY(6px) scaleX(1);transition-delay:.12s}
+.mn.o #mt .ic i:nth-child(1){transform:rotate(45deg) scaleX(1);transition-delay:0s}
+.mn.o #mt .ic i:nth-child(2){opacity:0;transform:scaleX(0)}
+.mn.o #mt .ic i:nth-child(3){transform:rotate(-45deg) scaleX(1);transition-delay:0s}
+@media(hover:none){.ic::before{opacity:0;transform:scale(0)}.ic i{opacity:1}.ic i:nth-child(1){transform:translateY(-6px) scaleX(1)}.ic i:nth-child(2){transform:scaleX(1)}.ic i:nth-child(3){transform:translateY(6px) scaleX(1)}}
 .tabs{left:0;right:auto;top:calc(100% + 10px);transform-origin:top left}
 #th{margin-left:auto}
 #pwa{position:fixed;left:50%;bottom:max(16px,env(safe-area-inset-bottom));z-index:20;width:min(440px,calc(100% - 24px));display:flex;align-items:center;gap:14px;padding:12px 12px 12px 14px;background:var(--s1);border:1px solid var(--bd2);border-radius:18px;box-shadow:0 24px 60px -20px rgba(0,0,0,.6);transform:translate(-50%,0);animation:pwa .7s var(--ease) backwards}
@@ -221,7 +233,7 @@ pre button{position:absolute;top:8px;right:8px;font:inherit;font-size:12px;paddi
 <div class="bg"><i></i><i></i></div>
 <nav>
     <div class="mn">
-    <button type="button" id="mt" aria-haspopup="true" aria-expanded="false" aria-controls="mp" aria-label="Menu"><span>Local<span class="g">LLM</span></span></button>
+    <button type="button" id="mt" aria-haspopup="true" aria-expanded="false" aria-controls="mp" aria-label="Menu"><span class="ic"><i></i><i></i><i></i></span><span>Local<span class="g">LLM</span></span></button>
     <div class="tabs" id="mp">
       <a href="#home" data-p="home"><b>Présentation</b><small>Ce que fait LocalLLM</small></a>
       <a href="#class" data-p="class"><b>Ma classe</b><small>Évalue ta machine en direct</small></a>
