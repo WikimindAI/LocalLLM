@@ -86,8 +86,7 @@ input[type=checkbox]{display:inline-block;width:auto;margin:0 9px 0 0;vertical-a
 .grid{grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
 .mc{display:flex;flex-direction:column;gap:20px;padding:22px;border-radius:22px;cursor:pointer;overflow:hidden;
   background:linear-gradient(180deg,color-mix(in srgb,var(--s2) 75%,var(--s1)),var(--s1) 60%);
-  box-shadow:inset 0 1px 0 var(--w2),0 1px 2px rgba(0,0,0,.18);
-  content-visibility:auto;contain-intrinsic-size:auto 282px}
+  box-shadow:inset 0 1px 0 var(--w2),0 1px 2px rgba(0,0,0,.18)}
 .mc::before{content:"";position:absolute;left:22px;right:22px;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--bd2),transparent);opacity:.5;transition:opacity .4s}
 .mc:hover{transform:translateY(-4px);border-color:var(--bd2);box-shadow:inset 0 1px 0 var(--w2),0 1px 2px rgba(0,0,0,.18)}
 .mc:hover::before{opacity:1}
@@ -366,7 +365,7 @@ function logoSrc(p){
 }
 function lerr(i){const a=i.dataset.alt;if(a){i.dataset.alt='';i.src=a}else i.remove()}
 const logo=(p,x)=>{const s=logoSrc(p);
-  return `<div class="lg ${x||''}" style="--h:${hue(p)}"><span>${ini(p)}</span>${s?`<img src="${s[0]}"${s[1]?` data-alt="${s[1]}"`:''} alt="" width="64" height="64" loading="lazy" decoding="async" referrerpolicy="no-referrer" onload="this.parentNode.classList.add('ok')" onerror="lerr(this)">`:''}</div>`};
+  return `<div class="lg ${x||''}" style="--h:${hue(p)}"><span>${ini(p)}</span>${s?`<img src="${s[0]}"${s[1]?` data-alt="${s[1]}"`:''} alt="" width="64" height="64" decoding="async" referrerpolicy="no-referrer" onload="this.parentNode.classList.add('ok')" onerror="lerr(this)">`:''}</div>`};
 
 function init(){
   $('cpus').innerHTML=H.cpus.map(c=>`<option value="${c.name}">`).join('');
@@ -512,6 +511,7 @@ function renderGrid(){
   let h='';S.forEach((r,k)=>{h+=card(r,c);if((k+1)%EVERY===0)h+=SHARE});
   $('grid').innerHTML=h||'<p class="mu">Aucun modèle ne correspond. Élargis les filtres ou décoche « Compatibles uniquement ».</p>';
   pager(pages);
+  document.querySelectorAll('#grid .lg:not(.ok) img').forEach(i=>{if(i.complete&&i.naturalWidth>0)i.parentNode.classList.add('ok')});
 }
 {const fl=()=>{PG=1;renderGrid()};
  ['q','fp','ft','only'].forEach(k=>$(k).addEventListener('input',()=>{if(k==='q'){clearTimeout(qt);qt=setTimeout(fl,140)}else fl()}))}
